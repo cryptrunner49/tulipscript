@@ -62,7 +62,7 @@ brew install go libffi readline pkg-config
 3. Run a script:
 
    ```bash
-   ./bin/seed sample/rpg_game.tlp
+   ./bin/tulip sample/rpg_game.tlp
    ```
 
 ---
