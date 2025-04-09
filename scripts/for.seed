@@ -1,4 +1,0 @@
-// For Loop
-for (var i = 0; i < 3; i = i + 1) {
-    println(i); // Outputs: 0, 1, 2
-}

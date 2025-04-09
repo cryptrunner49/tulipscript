@@ -333,7 +333,7 @@ func (l *Lexer) identifier() token.Token {
 
 func isOperatorRune(r rune) bool {
 	switch r {
-	case '(', ')', '{', '}', '[', ']', '|', ':', '?', ';', ',', '.', '-', '+', '/', '%', '@', '#', '$', '*', '!', '=', '<', '>', '"', '\'':
+	case '(', ')', '{', '}', '[', ']', ':', '?', ';', ',', '.', '-', '+', '/', '%', '@', '#', '$', '*', '!', '=', '<', '>', '"', '\'':
 		return true
 	default:
 		return false
@@ -343,7 +343,7 @@ func isOperatorRune(r rune) bool {
 func (l *Lexer) identifierType() token.TokenType {
 	startStr := l.source[l.start:l.current]
 	switch startStr {
-	case "and":
+	case "&&":
 		return token.TOKEN_AND
 	case "else":
 		return token.TOKEN_ELSE
@@ -357,7 +357,7 @@ func (l *Lexer) identifierType() token.TokenType {
 		return token.TOKEN_IF
 	case "null":
 		return token.TOKEN_NULL
-	case "or":
+	case "||":
 		return token.TOKEN_OR
 	case "return":
 		return token.TOKEN_RETURN
