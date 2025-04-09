@@ -25,7 +25,7 @@ There are several ways to contribute to the TulipScript project:
 - **Report Bugs**: Identify and report issues with the language or examples.
 - **Suggest Features**: Propose new language features, native functions, or example scripts.
 - **Improve Documentation**: Enhance the `SEED_USAGE.md`, this file, or add new guides.
-- **Submit Code**: Add new `.seed` example scripts, fix bugs, or improve the interpreter (if applicable).
+- **Submit Code**: Add new `.tlp` example scripts, fix bugs, or improve the interpreter (if applicable).
 
 All contributions should align with the project’s goal of making TulipScript a simple, expressive, and Unicode-friendly scripting language.
 
@@ -35,12 +35,12 @@ All contributions should align with the project’s goal of making TulipScript a
 
 If you encounter a bug or unexpected behavior:
 
-1. **Check Existing Issues**: Search the [Issues](https://github.com/cryptrunner49/goseedvm/issues) tab to avoid duplicates.
+1. **Check Existing Issues**: Search the [Issues](https://github.com/cryptrunner49/tulipscript/issues) tab to avoid duplicates.
 2. **Open a New Issue**:
    - Provide a clear title (e.g., "Runtime Error in `for` Loop with Unicode Variables").
    - Include:
      - A description of the issue.
-     - Steps to reproduce (e.g., a minimal `.seed` script).
+     - Steps to reproduce (e.g., a minimal `.tlp` script).
      - Expected vs. actual behavior.
      - TulipScript version (if known) and environment (e.g., OS).
    - Example:
@@ -62,7 +62,7 @@ If you encounter a bug or unexpected behavior:
 
 Have an idea for a new feature or improvement?
 
-1. **Check Existing Suggestions**: Look in [Issues](https://github.com/cryptrunner49/goseedvm/issues) for similar proposals.
+1. **Check Existing Suggestions**: Look in [Issues](https://github.com/cryptrunner49/tulipscript/issues) for similar proposals.
 2. **Open a New Issue**:
    - Use the "Feature Request" template (if available).
    - Provide:
@@ -87,15 +87,15 @@ Have an idea for a new feature or improvement?
 
 ### Getting Started
 
-1. **Fork the Repository**: Click "Fork" on [GitHub](https://github.com/cryptrunner49/goseedvm) to create your copy.
+1. **Fork the Repository**: Click "Fork" on [GitHub](https://github.com/cryptrunner49/tulipscript) to create your copy.
 2. **Clone Your Fork**: `git clone https://github.com/<your-username>/<repo-name>.git`
 3. **Create a Branch**: `git checkout -b <branch-name>` (e.g., `git checkout -b add-array-slicing`)
-4. **Make Changes**: Edit files locally (e.g., add `.seed` scripts or modify the TulipScript VM).
+4. **Make Changes**: Edit files locally (e.g., add `.tlp` scripts or modify the TulipScript VM).
 5. **Test**: Run your changes with the TulipScript VM to ensure they work as expected.
 
 ### Code Style Guidelines
 
-For `.seed` scripts:
+For `.tlp` scripts:
 
 - **Section Headers**: Use `// --- Section Name ---` and `println("--- Section Name ---");` for organization (see `SEED_USAGE.md`).
 - **Print Statements**: Include descriptive labels (e.g., `println("Result:", value);`).
@@ -111,7 +111,7 @@ For Compiler and VM code:
 
 ### Submitting a Pull Request
 
-1. **Commit Changes**: `git add . && git commit -m "Add array slicing example in arrays.seed"`
+1. **Commit Changes**: `git add . && git commit -m "Add array slicing example in arrays.tlp"`
    - Use clear, concise commit messages (e.g., "Fix bug in string comparison", "Update README with modules").
 2. **Push to Your Fork**: `git push origin <branch-name>`
 3. **Open a Pull Request**:
@@ -122,14 +122,14 @@ For Compiler and VM code:
      - A description:
        - What you changed.
        - Why (e.g., fixes issue #123).
-       - How to test (e.g., "Run `arrays.seed`").
+       - How to test (e.g., "Run `arrays.tlp`").
    - Example:
 
      ```text
      **Title**: Add Array Slicing Example
-     **Description**: Added slicing demo to `arrays.seed`. Resolves #45.
-     **Changes**: Updated `arrays.seed` with `arr[1:3]` example.
-     **Test**: Run `seed arrays.seed` and check output: `[2, 3]`.
+     **Description**: Added slicing demo to `arrays.tlp`. Resolves #45.
+     **Changes**: Updated `arrays.tlp` with `arr[1:3]` example.
+     **Test**: Run `seed arrays.tlp` and check output: `[2, 3]`.
      ```
 
 4. **Label**: Add `enhancement`, `bug`, or `documentation` as appropriate.
@@ -151,7 +151,7 @@ We aim to foster an inclusive, collaborative community. Violations may result in
 ## Contact
 
 - **Issues**: Use GitHub Issues for bugs or feature requests.
-- **Discussions**: Join the [Discussions](https://github.com/cryptrunner49/goseedvm/discussions) tab for general questions or ideas.
+- **Discussions**: Join the [Discussions](https://github.com/cryptrunner49/tulipscript/discussions) tab for general questions or ideas.
 - **Email**: Reach out to `<your-email>` (optional, replace with your contact if desired).
 
 ---

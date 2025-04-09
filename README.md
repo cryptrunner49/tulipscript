@@ -7,7 +7,7 @@ TulipScript is a lightweight, expressive scripting language designed for simplic
 ## Features
 
 - **Unicode & Emoji Support**: Use `π`, `挨拶`, or `🔢` as variable names.
-- **Simple Syntax**: Easy-to-learn constructs like `var`, `fn`, `if`, and `for`.
+- **Simple Syntax**: Easy-to-learn constructs like `let`, `const`, `function`, `if`, and `for`.
 - **Native Functions**: Built-ins like `clock()`, `shuffle()`, and `random_between()`.
 - **Structs & Closures**: Define custom types and leverage functional programming.
 - **File I/O**: Read and write files with `read_file()` and `write_file()`.
@@ -49,8 +49,8 @@ brew install go libffi readline pkg-config
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/cryptrunner49/goseedvm.git
-   cd goseedvm
+   git clone https://github.com/cryptrunner49/tulipscript.git
+   cd tulipscript
    ```
 
 2. Build the interpreter:
@@ -62,7 +62,7 @@ brew install go libffi readline pkg-config
 3. Run a script:
 
    ```bash
-   ./bin/seed scripts/rpg.seed
+   ./bin/seed sample/rpg_game.tlp
    ```
 
 ---
@@ -71,12 +71,12 @@ brew install go libffi readline pkg-config
 
 Try this simple example:
 
-```seed
-var 挨拶 = "Hello, TulipScript!";
-println(挨拶);  // Outputs: Hello, TulipScript!
+```tulipscript
+var hello = "Hello, TulipScript!";
+println(hello)  // Outputs: Hello, TulipScript!
 
 for (var i = 0; i < 3; i = i + 1) {
-    println("Count:", i);  // Outputs: Count: 0, Count: 1, Count: 2
+    println("Count:", i)  // Outputs: Count: 0, Count: 1, Count: 2
 }
 ```
 
@@ -95,7 +95,7 @@ Here’s what’s planned for TulipScript’s future:
 - [ ] **Error Handling**: Add try-catch or similar mechanisms.
 - [ ] **Standard Library**: Expand with more utility functions.
 
-See the [Issues](https://github.com/cryptrunner49/goseedvm/issues) tab for progress and to suggest features!
+See the [Issues](https://github.com/cryptrunner49/tulipscript/issues) tab for progress and to suggest features!
 
 ---
 
