@@ -294,21 +294,21 @@ println("Random number (1-10):", randNum)  // Outputs: Random number (1-10): <ra
 TulipScript supports modular programming with `import` and `mod` for code organization.
 
 ```tulipscript
-// math.tulipscript
+// math.tlp
 function add(a, b) {
     return a + b
 }
 const PI = 3.14159
 
-// main.tulipscript
-import "math.tulipscript"
+// main.tlp
+import "math.tlp"
 println("Imported add(2, 3):", add(2, 3))  // Outputs: Imported add(2, 3): 5
 println("Imported PI:", PI)  // Outputs: Imported PI: 3.14159
 ```
 
 **Explanation**:  
 
-- Use `import "filename.tulipscript"` to include external scripts.
+- Use `import "filename.tlp"` to include external scripts.
 - Functions and constants from the imported module (e.g., `add`, `PI`) are directly accessible.
 - Modules help organize code into reusable units.
 
