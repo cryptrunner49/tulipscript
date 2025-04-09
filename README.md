@@ -1,13 +1,13 @@
 # TulipScript
 
-TulipScript is a lightweight, expressive scripting language designed for simplicity and flexibility. With support for Unicode and emoji identifiers, native functions, and modern programming constructs, TulipScript is perfect for quick scripts, educational purposes, or experimenting with creative coding. Whether you're shuffling arrays, writing to files, or defining structs with cat emojis (🐱), TulipScript makes programming fun and accessible.
+TulipScript is a lightweight, expressive, JavaScript-inspired scripting language designed for simplicity and flexibility. Drawing from JavaScript’s familiar syntax, it adds unique features like Unicode and emoji identifiers, native functions, and modern programming constructs. TulipScript is perfect for quick scripts, educational purposes, or experimenting with creative coding. Whether you're shuffling arrays, writing to files, or defining structs with cat emojis (🐱), TulipScript makes programming fun and accessible.
 
 ---
 
 ## Features
 
 - **Unicode & Emoji Support**: Use `π`, `挨拶`, or `🔢` as variable names.
-- **Simple Syntax**: Easy-to-learn constructs like `let`, `const`, `function`, `if`, and `for`.
+- **JavaScript-Inspired Syntax**: Easy-to-learn constructs like `let`, `const`, `function`, `if`, and `for`.
 - **Native Functions**: Built-ins like `clock()`, `shuffle()`, and `random_between()`.
 - **Structs & Closures**: Define custom types and leverage functional programming.
 - **File I/O**: Read and write files with `read_file()` and `write_file()`.
@@ -62,7 +62,7 @@ brew install go libffi readline pkg-config
 3. Run a script:
 
    ```bash
-   ./bin/seed sample/rpg_game.tlp
+   ./bin/tulip sample/rpg_game.tlp
    ```
 
 ---
@@ -72,15 +72,15 @@ brew install go libffi readline pkg-config
 Try this simple example:
 
 ```tulipscript
-var hello = "Hello, TulipScript!";
+let hello = "Hello, TulipScript!"
 println(hello)  // Outputs: Hello, TulipScript!
 
-for (var i = 0; i < 3; i = i + 1) {
+for (let i = 0; i < 3; i = i + 1) {
     println("Count:", i)  // Outputs: Count: 0, Count: 1, Count: 2
 }
 ```
 
-For detailed examples of variables, structs, loops, and more, check out the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md).
+For detailed examples of variables, constants, structs, loops, and more, check out the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md).
 
 ---
 
@@ -107,4 +107,4 @@ We’d love your help to make TulipScript better! Whether it’s adding examples
 
 ## License
 
-TulipScript is licensed under the MIT License. See the [LICENSE](LICENSE) file for full details.
+See the [LICENSE](LICENSE) file for full details.
