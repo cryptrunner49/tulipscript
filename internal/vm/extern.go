@@ -194,7 +194,7 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/cryptrunner49/goseedvm/internal/runtime"
+	"github.com/cryptrunner49/tulipscript/internal/runtime"
 )
 
 // Type mappings from Seed to C TypeCode

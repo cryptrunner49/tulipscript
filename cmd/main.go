@@ -17,7 +17,7 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/cryptrunner49/goseedvm/internal/vm"
+	"github.com/cryptrunner49/tulipscript/internal/vm"
 )
 
 func main() {

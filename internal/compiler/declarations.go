@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/cryptrunner49/goseedvm/internal/runtime"
-	"github.com/cryptrunner49/goseedvm/internal/token"
+	"github.com/cryptrunner49/tulipscript/internal/runtime"
+	"github.com/cryptrunner49/tulipscript/internal/token"
 )
 
 // declareVariable handles variable declarations and checks for redeclaration in the same scope.

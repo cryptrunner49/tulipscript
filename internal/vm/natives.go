@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cryptrunner49/goseedvm/internal/common"
-	"github.com/cryptrunner49/goseedvm/internal/runtime"
+	"github.com/cryptrunner49/tulipscript/internal/common"
+	"github.com/cryptrunner49/tulipscript/internal/runtime"
 )
 
 // Seed the random number generator once during initialization

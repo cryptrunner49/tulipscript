@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cryptrunner49/goseedvm/internal/lexer"
-	"github.com/cryptrunner49/goseedvm/internal/runtime"
-	"github.com/cryptrunner49/goseedvm/internal/token"
+	"github.com/cryptrunner49/tulipscript/internal/lexer"
+	"github.com/cryptrunner49/tulipscript/internal/runtime"
+	"github.com/cryptrunner49/tulipscript/internal/token"
 )
 
 // errorAt reports an error at a specific token and prints the error message along with the line number.
