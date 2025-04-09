@@ -13,7 +13,7 @@ TulipScript is a lightweight, expressive scripting language designed for simplic
 - **File I/O**: Read and write files with `read_file()` and `write_file()`.
 - **Cross-Platform**: Runs on any system with the required dependencies.
 
-Explore more in the [TulipScript Usage Guide](SEED_USAGE.md)!
+Explore more in the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md)!
 
 ---
 
@@ -80,7 +80,7 @@ for (var i = 0; i < 3; i = i + 1) {
 }
 ```
 
-For detailed examples of variables, structs, loops, and more, check out the [TulipScript Usage Guide](SEED_USAGE.md).
+For detailed examples of variables, structs, loops, and more, check out the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md).
 
 ---
 
