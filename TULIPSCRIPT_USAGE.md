@@ -1,6 +1,6 @@
-# Seed Language Usage Guide
+# TulipScript Usage Guide
 
-Welcome to the Seed Language Usage Guide! Seed is a versatile scripting language that supports modern programming constructs, Unicode and emoji identifiers, and a variety of built-in features. This README provides practical examples and explanations of Seed's core features, making it an ideal starting point for developers. Each section includes a code snippet from a corresponding `.seed` file, followed by a detailed explanation.
+Welcome to the TulipScript Usage Guide! TulipScript is a versatile scripting language that supports modern programming constructs, Unicode and emoji identifiers, and a variety of built-in features. This README provides practical examples and explanations of TulipScript's core features, making it an ideal starting point for developers. Each section includes a code snippet from a corresponding `.seed` file, followed by a detailed explanation.
 
 ---
 
@@ -21,7 +21,7 @@ Welcome to the Seed Language Usage Guide! Seed is a versatile scripting language
 
 ## 1. Variables (`variables.seed`)
 
-Seed supports variables of various types, including numbers, strings, booleans, and null, with flexible naming using Unicode and emojis.
+TulipScript supports variables of various types, including numbers, strings, booleans, and null, with flexible naming using Unicode and emojis.
 
 ```seed
 // Number
@@ -29,8 +29,8 @@ var num = 42;
 println("Number:", num);  // Outputs: Number: 42
 
 // String
-var message = "Hello, Seed!";
-println("Message:", message);  // Outputs: Message: Hello, Seed!
+var message = "Hello, TulipScript!";
+println("Message:", message);  // Outputs: Message: Hello, TulipScript!
 
 // Boolean
 var isTrue = true;
@@ -54,14 +54,14 @@ println("Number (🔢):", 🔢);  // Outputs: Number (🔢): 100
 **Explanation**:  
 
 - Use `var` to declare variables with any value type: numbers, strings, booleans, or `null`.
-- Seed’s unique feature is its support for Unicode (e.g., `π`, `挨拶`) and emoji (e.g., `🔢`) variable names, making it highly expressive.
+- TulipScript’s unique feature is its support for Unicode (e.g., `π`, `挨拶`) and emoji (e.g., `🔢`) variable names, making it highly expressive.
 - The `println` function outputs values with optional labels for clarity.
 
 ---
 
 ## 2. Closures (`closures.seed`)
 
-Closures in Seed allow inner functions to access variables from outer scopes, enabling powerful functional programming patterns.
+Closures in TulipScript allow inner functions to access variables from outer scopes, enabling powerful functional programming patterns.
 
 ```seed
 fn outer() {
@@ -84,7 +84,7 @@ outer();  // Outputs: Sum: 10
 
 - The `inner` function captures `a` and `b` from `outer` and `c` and `d` from `middle`, demonstrating closure scope.
 - Calling `outer()` executes the nested functions, summing the variables to output `10` (1 + 3 + 2 + 4).
-- Seed’s `fn` keyword defines functions, which can be nested arbitrarily.
+- TulipScript’s `fn` keyword defines functions, which can be nested arbitrarily.
 
 ---
 
@@ -137,7 +137,7 @@ printf("Time taken: %v seconds\n", clock() - start);  // Outputs: Time taken: <s
 
 - This version uses a `for` loop to iteratively compute Fibonacci numbers, updating `a` and `b` in each step.
 - It’s more efficient than recursion for large `n`, as shown by the shorter execution time.
-- The syntax `i = i + 1` is used for incrementing, though Seed also supports `i++`.
+- The syntax `i = i + 1` is used for incrementing, though TulipScript also supports `i++`.
 
 ---
 
@@ -186,13 +186,13 @@ println("Cat name (子猫.種類):", 子猫.種類);  // Outputs: Cat name (子�
 
 - Structs are defined with `struct`, allowing fields with default values (e.g., `species = "Unknown"`).
 - The `if` statement checks conditions, and `while` loops iterate based on a condition.
-- Unicode structs (e.g., `猫`) show Seed’s multilingual support, with fields accessed via dot notation.
+- Unicode structs (e.g., `猫`) show TulipScript’s multilingual support, with fields accessed via dot notation.
 
 ---
 
 ## 6. Arrays (`arrays.seed`)
 
-Seed provides robust array support with built-in functions for manipulation.
+TulipScript provides robust array support with built-in functions for manipulation.
 
 ```seed
 var arr = [1, 2, 3, 4, 5];
@@ -216,16 +216,16 @@ for (var i = 0; i < len(arr); i = i + 1) {
 
 ## 7. File Operations (`file.seed`)
 
-Seed supports basic file I/O operations for reading and writing text files.
+TulipScript supports basic file I/O operations for reading and writing text files.
 
 ```seed
 var filename = "test.txt";
-var content = "Hello from Seed!\nWritten on April 09, 2025.";
+var content = "Hello from TulipScript!\nWritten on April 09, 2025.";
 write_file(filename, content);
 println("Wrote to file:", filename);
 
 var readContent = read_file(filename);
-println("Read from file:", readContent);  // Outputs: Read from file: Hello from Seed!...
+println("Read from file:", readContent);  // Outputs: Read from file: Hello from TulipScript!...
 ```
 
 **Explanation**:  
@@ -238,7 +238,7 @@ println("Read from file:", readContent);  // Outputs: Read from file: Hello from
 
 ## 8. Native Functions (`native_functions.seed`)
 
-Seed includes native functions for tasks like timing, randomization, and I/O.
+TulipScript includes native functions for tasks like timing, randomization, and I/O.
 
 ```seed
 var time = clock();
@@ -262,7 +262,7 @@ println("Random number (1-10):", randNum);  // Outputs: Random number (1-10): <r
 
 ## 9. Modules (`modules.seed`)
 
-Seed supports modular programming with `import` and `mod` for code organization.
+TulipScript supports modular programming with `import` and `mod` for code organization.
 
 ```seed
 // math.seed

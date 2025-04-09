@@ -1,6 +1,6 @@
-# Contributing to the Seed Language Project
+# Contributing to the TulipScript Project
 
-Thank you for your interest in contributing to the Seed Language Project! We welcome contributions from the community to enhance the language, its documentation, and examples. This guide outlines how you can get involved, from reporting issues to submitting code changes.
+Thank you for your interest in contributing to the TulipScript Project! We welcome contributions from the community to enhance the language, its documentation, and examples. This guide outlines how you can get involved, from reporting issues to submitting code changes.
 
 ---
 
@@ -20,14 +20,14 @@ Thank you for your interest in contributing to the Seed Language Project! We wel
 
 ## How to Contribute
 
-There are several ways to contribute to the Seed project:
+There are several ways to contribute to the TulipScript project:
 
 - **Report Bugs**: Identify and report issues with the language or examples.
 - **Suggest Features**: Propose new language features, native functions, or example scripts.
 - **Improve Documentation**: Enhance the `SEED_USAGE.md`, this file, or add new guides.
 - **Submit Code**: Add new `.seed` example scripts, fix bugs, or improve the interpreter (if applicable).
 
-All contributions should align with the project’s goal of making Seed a simple, expressive, and Unicode-friendly scripting language.
+All contributions should align with the project’s goal of making TulipScript a simple, expressive, and Unicode-friendly scripting language.
 
 ---
 
@@ -42,7 +42,7 @@ If you encounter a bug or unexpected behavior:
      - A description of the issue.
      - Steps to reproduce (e.g., a minimal `.seed` script).
      - Expected vs. actual behavior.
-     - Seed version (if known) and environment (e.g., OS).
+     - TulipScript version (if known) and environment (e.g., OS).
    - Example:
 
      ```text
@@ -51,7 +51,7 @@ If you encounter a bug or unexpected behavior:
      **Steps**: Run `var a = "1"; println(a > "2");`
      **Expected**: False
      **Actual**: Runtime Error: Both operands must be numbers
-     **Environment**: Seed vX.X, Windows 10
+     **Environment**: TulipScript vX.X, Windows 10
      ```
 
 3. **Label**: Add the `bug` label to help us triage.
@@ -90,8 +90,8 @@ Have an idea for a new feature or improvement?
 1. **Fork the Repository**: Click "Fork" on [GitHub](https://github.com/cryptrunner49/goseedvm) to create your copy.
 2. **Clone Your Fork**: `git clone https://github.com/<your-username>/<repo-name>.git`
 3. **Create a Branch**: `git checkout -b <branch-name>` (e.g., `git checkout -b add-array-slicing`)
-4. **Make Changes**: Edit files locally (e.g., add `.seed` scripts or modify the Seed VM).
-5. **Test**: Run your changes with the Seed VM to ensure they work as expected.
+4. **Make Changes**: Edit files locally (e.g., add `.seed` scripts or modify the TulipScript VM).
+5. **Test**: Run your changes with the TulipScript VM to ensure they work as expected.
 
 ### Code Style Guidelines
 
@@ -141,7 +141,7 @@ For Compiler and VM code:
 
 - **Be Respectful**: Treat everyone with kindness and respect, regardless of experience level.
 - **Be Constructive**: Offer helpful feedback and suggestions.
-- **Stay On Topic**: Keep discussions and contributions relevant to Seed.
+- **Stay On Topic**: Keep discussions and contributions relevant to TulipScript.
 - **Follow Standards**: Adhere to this guide and the project’s goals.
 
 We aim to foster an inclusive, collaborative community. Violations may result in moderation by maintainers.
@@ -158,4 +158,4 @@ We aim to foster an inclusive, collaborative community. Violations may result in
 
 ## Acknowledgments
 
-Thank you for contributing to Seed! Your efforts help make this language more powerful, accessible, and fun to use. Every bug report, feature idea, or code submission brings us closer to a better Seed ecosystem.
+Thank you for contributing to TulipScript! Your efforts help make this language more powerful, accessible, and fun to use. Every bug report, feature idea, or code submission brings us closer to a better TulipScript ecosystem.
