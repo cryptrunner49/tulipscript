@@ -159,7 +159,7 @@ func defineNative(name string, function runtime.NativeFn) {
 	Push(runtime.Value{Type: runtime.VAL_OBJ, Obj: nameObj})
 	nativeObj := &runtime.ObjNative{Function: function}
 	Push(runtime.Value{Type: runtime.VAL_OBJ, Obj: nativeObj})
-	vm.globals[nameObj] = vm.stack[vm.stackTop-1]
+	vm.globals[nameObj] = GlobalVar{Value: runtime.Value{Type: runtime.VAL_OBJ, Obj: nativeObj}, IsConst: false}
 	Pop()
 	Pop()
 }

@@ -35,6 +35,7 @@ type Local struct {
 	name       token.Token // Token representing the variable's name.
 	depth      int         // Scope depth where the variable was declared.
 	isCaptured bool        // Indicates if the variable is captured by an enclosing function.
+	isConst    bool        // Indicates if the variable is a constant.
 }
 
 // Upvalue holds information about a variable captured by a closure.
@@ -162,7 +163,7 @@ func init() {
 	rules[token.TOKEN_STRUCT] = ParseRule{nil, nil, PREC_NONE}
 	rules[token.TOKEN_THIS] = ParseRule{nil, nil, PREC_NONE}
 	rules[token.TOKEN_TRUE] = ParseRule{literal, nil, PREC_NONE}
-	rules[token.TOKEN_VAR] = ParseRule{nil, nil, PREC_NONE}
+	rules[token.TOKEN_LET] = ParseRule{nil, nil, PREC_NONE}
 	rules[token.TOKEN_WHILE] = ParseRule{nil, nil, PREC_NONE}
 	rules[token.TOKEN_ITER] = ParseRule{nil, nil, PREC_NONE}
 	rules[token.TOKEN_BREAK] = ParseRule{nil, nil, PREC_NONE}
@@ -289,8 +290,10 @@ func declaration() {
 		structDeclaration()
 	} else if match(token.TOKEN_FN) {
 		fnDeclaration()
-	} else if match(token.TOKEN_VAR) {
+	} else if match(token.TOKEN_LET) {
 		varDeclaration()
+	} else if match(token.TOKEN_CONST) {
+		constDeclaration()
 	} else if match(token.TOKEN_DEF) {
 		defDeclaration()
 	} else if match(token.TOKEN_MOD) {
@@ -334,7 +337,7 @@ func parsePrecedence(precedence Precedence) {
 }
 
 // addLocal adds a new local variable to the current compiler state.
-func addLocal(name token.Token) {
+func addLocal(name token.Token, isConst bool) {
 	if current.localCount == 256 {
 		reportError("Too many local variables in this scope (max 256).")
 		return
@@ -343,6 +346,7 @@ func addLocal(name token.Token) {
 	local.name = name
 	local.depth = -1 // Uninitialized.
 	local.isCaptured = false
+	local.isConst = isConst
 	current.localCount++
 }
 
@@ -448,6 +452,10 @@ func unary(canAssign bool) {
 		}
 
 		name := parser.previous
+		if localArg := resolveLocal(current, name); localArg != -1 && current.locals[localArg].isConst {
+			reportError(fmt.Sprintf("Cannot increment constant variable '%s'.", name.Start))
+			return
+		}
 		var getOp, setOp uint8
 		var arg int
 		if localArg := resolveLocal(current, name); localArg != -1 {
@@ -478,6 +486,10 @@ func unary(canAssign bool) {
 		}
 
 		name := parser.previous
+		if localArg := resolveLocal(current, name); localArg != -1 && current.locals[localArg].isConst {
+			reportError(fmt.Sprintf("Cannot decrement constant variable '%s'.", name.Start))
+			return
+		}
 		var getOp, setOp uint8
 		var arg int
 		if localArg := resolveLocal(current, name); localArg != -1 {
@@ -610,39 +622,55 @@ func resolveUpvalue(compiler *Compiler, name token.Token) int {
 func namedVariable(name token.Token, canAssign bool) {
 	var getOp, setOp uint8
 	var arg int
+	isConst := false // Track if the variable is constant
 	if localArg := resolveLocal(current, name); localArg != -1 {
 		arg = localArg
 		getOp = byte(runtime.OP_GET_LOCAL)
 		setOp = byte(runtime.OP_SET_LOCAL)
+		isConst = current.locals[localArg].isConst // Check if local is const
 	} else if upvalueArg := resolveUpvalue(current, name); upvalueArg != -1 {
 		arg = upvalueArg
 		getOp = byte(runtime.OP_GET_UPVALUE)
 		setOp = byte(runtime.OP_SET_UPVALUE)
+		// Upvalues don’t track const-ness directly; assume not const unless enhanced
 	} else {
 		arg = int(identifierConstant(name))
 		getOp = byte(runtime.OP_GET_GLOBAL)
 		setOp = byte(runtime.OP_SET_GLOBAL)
+		// Globals don’t track const-ness yet; handled in VM later
 	}
 
 	if canAssign && match(token.TOKEN_EQUAL) {
+		if isConst {
+			reportError(fmt.Sprintf("Cannot assign to constant variable '%s'.", name.Start))
+			return
+		}
 		expression()
 		emitBytes(setOp, uint8(arg))
 	} else if match(token.TOKEN_PLUS_PLUS) {
-		// Postfix x++: Load, duplicate, increment, store, pop new value, leave original on stack
-		emitBytes(getOp, uint8(arg))                                     // Load variable value (e.g., 5)
-		emitByte(byte(runtime.OP_DUP))                                   // Duplicate for return (stack: [5, 5])
-		emitConstant(runtime.Value{Type: runtime.VAL_NUMBER, Number: 1}) // Push 1 (stack: [5, 5, 1])
-		emitByte(byte(runtime.OP_ADD))                                   // Increment (stack: [5, 6])
-		emitBytes(setOp, uint8(arg))                                     // Store new value back (stack: [5, 6])
-		emitByte(byte(runtime.OP_POP))                                   // Pop new value (stack: [5])
+		if isConst {
+			reportError(fmt.Sprintf("Cannot increment constant variable '%s'.", name.Start))
+			return
+		}
+		// Existing postfix ++ logic...
+		emitBytes(getOp, uint8(arg))
+		emitByte(byte(runtime.OP_DUP))
+		emitConstant(runtime.Value{Type: runtime.VAL_NUMBER, Number: 1})
+		emitByte(byte(runtime.OP_ADD))
+		emitBytes(setOp, uint8(arg))
+		emitByte(byte(runtime.OP_POP))
 	} else if match(token.TOKEN_MINUS_MINUS) {
-		// Postfix x--: Load, duplicate, decrement, store, pop new value, leave original on stack
-		emitBytes(getOp, uint8(arg))                                     // Load variable value (e.g., 6)
-		emitByte(byte(runtime.OP_DUP))                                   // Duplicate for return (stack: [6, 6])
-		emitConstant(runtime.Value{Type: runtime.VAL_NUMBER, Number: 1}) // Push 1 (stack: [6, 6, 1])
-		emitByte(byte(runtime.OP_SUBTRACT))                              // Decrement (stack: [6, 5])
-		emitBytes(setOp, uint8(arg))                                     // Store new value back (stack: [6, 5])
-		emitByte(byte(runtime.OP_POP))                                   // Pop new value (stack: [6])
+		if isConst {
+			reportError(fmt.Sprintf("Cannot decrement constant variable '%s'.", name.Start))
+			return
+		}
+		// Existing postfix -- logic...
+		emitBytes(getOp, uint8(arg))
+		emitByte(byte(runtime.OP_DUP))
+		emitConstant(runtime.Value{Type: runtime.VAL_NUMBER, Number: 1})
+		emitByte(byte(runtime.OP_SUBTRACT))
+		emitBytes(setOp, uint8(arg))
+		emitByte(byte(runtime.OP_POP))
 	} else {
 		emitBytes(getOp, uint8(arg))
 	}

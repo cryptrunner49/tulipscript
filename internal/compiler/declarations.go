@@ -24,7 +24,16 @@ func declareVariable() {
 			reportError(fmt.Sprintf("Variable '%s' is already declared in this scope.", name.Start))
 		}
 	}
-	addLocal(name)
+	addLocal(name, false)
+}
+
+func defineConstVariable(global uint8) {
+	if current.scopeDepth > 0 {
+		markInitialized()
+		current.locals[current.localCount-1].isConst = true
+	} else {
+		emitBytes(byte(runtime.OP_DEFINE_CONST_GLOBAL), global)
+	}
 }
 
 func fnDeclaration() {
@@ -41,7 +50,7 @@ func varDeclaration() {
 	} else {
 		emitByte(byte(runtime.OP_NULL))
 	}
-	consume(token.TOKEN_SEMICOLON, "Expected ';' after variable declaration (e.g., 'var x = 5;').")
+	consumeOptionalSemicolon()
 	defineVariable(global)
 }
 
@@ -168,7 +177,7 @@ func modDeclarationField() (*runtime.ObjString, runtime.Value) {
 
 	// Parse declarations inside the nested module body.
 	for !check(token.TOKEN_RIGHT_BRACE) && !check(token.TOKEN_EOF) {
-		if match(token.TOKEN_VAR) {
+		if match(token.TOKEN_LET) {
 			consume(token.TOKEN_IDENTIFIER, "Expected variable name in nested module.")
 			fName := runtime.NewObjString(parser.previous.Start)
 			var defVal runtime.Value
@@ -193,7 +202,7 @@ func modDeclarationField() (*runtime.ObjString, runtime.Value) {
 			} else {
 				defVal = runtime.Value{Type: runtime.VAL_NULL}
 			}
-			consume(token.TOKEN_SEMICOLON, "Expected ';' after variable declaration in nested module.")
+			consumeOptionalSemicolon()
 			nestedFieldNames = append(nestedFieldNames, fName)
 			nestedFieldDefaults = append(nestedFieldDefaults, defVal)
 		} else if match(token.TOKEN_FN) {
@@ -260,7 +269,7 @@ func defDeclaration() {
 	defineVariable(aliasConstant)
 
 	// Require semicolon to terminate the declaration.
-	consume(token.TOKEN_SEMICOLON, "Expected ';' after 'def' alias declaration (e.g., 'def position.x as pos;').")
+	consumeOptionalSemicolon()
 }
 
 func modDeclaration() {
@@ -286,7 +295,7 @@ func modDeclaration() {
 
 		// Define the alias in the current scope.
 		defineVariable(aliasConstant)
-		consume(token.TOKEN_SEMICOLON, "Expected ';' after module alias declaration.")
+		consumeOptionalSemicolon()
 		return
 	}
 
@@ -306,7 +315,7 @@ func modDeclaration() {
 
 	// Parse module body
 	for !check(token.TOKEN_RIGHT_BRACE) && !check(token.TOKEN_EOF) {
-		if match(token.TOKEN_VAR) {
+		if match(token.TOKEN_LET) {
 			consume(token.TOKEN_IDENTIFIER, "Expected variable name in module declaration.")
 			fName := runtime.NewObjString(parser.previous.Start)
 			var defVal runtime.Value
@@ -331,7 +340,7 @@ func modDeclaration() {
 			} else {
 				defVal = runtime.Value{Type: runtime.VAL_NULL}
 			}
-			consume(token.TOKEN_SEMICOLON, "Expected ';' after variable declaration in module.")
+			consumeOptionalSemicolon()
 			fieldNames = append(fieldNames, fName)
 			fieldDefaults = append(fieldDefaults, defVal)
 		} else if match(token.TOKEN_FN) {
@@ -378,7 +387,7 @@ func importDeclaration() {
 		}
 		pathConstant := makeConstant(runtime.Value{Type: runtime.VAL_OBJ, Obj: runtime.NewObjString(absPath)})
 		emitBytes(byte(runtime.OP_IMPORT), pathConstant)
-		consume(token.TOKEN_SEMICOLON, "Expected ';' after import statement.")
+		consumeOptionalSemicolon()
 	} else {
 		var path []string
 		consume(token.TOKEN_IDENTIFIER, "Expected identifier after 'import'.")
@@ -395,7 +404,7 @@ func importDeclaration() {
 			emitBytes(byte(runtime.OP_GET_PROPERTY), identifierConstant(token.Token{Start: part}))
 		}
 		defineVariable(aliasConstant)
-		consume(token.TOKEN_SEMICOLON, "Expected ';' after import alias.")
+		consumeOptionalSemicolon()
 	}
 }
 
@@ -447,12 +456,24 @@ func useDeclaration() {
 		emitByte(funcNameConstant)
 
 		// Expect semicolon after each function declaration
-		consume(token.TOKEN_SEMICOLON, "Expected ';' after function declaration.")
+		consumeOptionalSemicolon()
 	}
 
 	// Parse closing brace: }
 	consume(token.TOKEN_RIGHT_BRACE, "Expected '}' after function declarations.")
 
 	// Expect semicolon after use statement
-	consume(token.TOKEN_SEMICOLON, "Expected ';' after 'use' statement.")
+	consumeOptionalSemicolon()
+}
+
+func constDeclaration() {
+	global := parseVariable("Expected a variable name after 'const' (e.g., 'const x = 5;').")
+	// Require an initializer
+	if !match(token.TOKEN_EQUAL) {
+		reportError("Constant variable declaration must include an initializer (e.g., 'const x = 5;').")
+		return
+	}
+	expression() // Compile the initializer expression
+	consumeOptionalSemicolon()
+	defineConstVariable(global) // New function to define a constant
 }

@@ -86,17 +86,22 @@ const (
 	INTERPRET_RUNTIME_ERROR                        // A runtime error occurred.
 )
 
+type GlobalVar struct {
+	Value   runtime.Value
+	IsConst bool
+}
+
 // VM represents the virtual machine state.
 type VM struct {
-	frames       [FRAMES_MAX]CallFrame                // Call frame stack for function calls.
-	frameCount   int                                  // Number of active call frames.
-	stack        [STACK_MAX]runtime.Value             // Value stack used during execution.
-	stackTop     int                                  // Index of the next available slot on the stack.
-	objects      *runtime.Obj                         // Linked list of all allocated objects.
-	globals      map[*runtime.ObjString]runtime.Value // Global variables table.
-	strings      map[uint32]*runtime.ObjString        // Interned strings table.
-	openUpvalues *runtime.ObjUpvalue                  // Linked list of open upvalues for closures.
-	libHandles   []unsafe.Pointer                     // List of loaded library handles.
+	frames       [FRAMES_MAX]CallFrame            // Call frame stack for function calls.
+	frameCount   int                              // Number of active call frames.
+	stack        [STACK_MAX]runtime.Value         // Value stack used during execution.
+	stackTop     int                              // Index of the next available slot on the stack.
+	objects      *runtime.Obj                     // Linked list of all allocated objects.
+	globals      map[*runtime.ObjString]GlobalVar // Global variables table.
+	strings      map[uint32]*runtime.ObjString    // Interned strings table.
+	openUpvalues *runtime.ObjUpvalue              // Linked list of open upvalues for closures.
+	libHandles   []unsafe.Pointer                 // List of loaded library handles.
 }
 
 var vm VM // Global VM instance.
@@ -106,7 +111,7 @@ var vm VM // Global VM instance.
 func InitVM(args []string) {
 	resetStack()
 	vm.objects = nil
-	vm.globals = make(map[*runtime.ObjString]runtime.Value)
+	vm.globals = make(map[*runtime.ObjString]GlobalVar)
 	vm.strings = make(map[uint32]*runtime.ObjString)
 
 	// Define built-in native functions and globals, including command-line arguments.
@@ -285,18 +290,24 @@ func run() InterpretResult {
 			Push(vm.stack[frame.slots+int(slot)])
 		case uint8(runtime.OP_DEFINE_GLOBAL):
 			name := readString(frame)
-			vm.globals[name] = peek(0)
+			vm.globals[name] = GlobalVar{Value: peek(0), IsConst: false}
+			Pop()
+		case uint8(runtime.OP_DEFINE_CONST_GLOBAL):
+			name := readString(frame)
+			vm.globals[name] = GlobalVar{Value: peek(0), IsConst: true}
 			Pop()
 		case uint8(runtime.OP_SET_GLOBAL):
 			name := readString(frame)
-			if _, exists := vm.globals[name]; !exists {
+			if global, exists := vm.globals[name]; !exists {
 				return runtimeError("Cannot assign to undefined global variable '%s'.", name.Chars)
+			} else if global.IsConst {
+				return runtimeError("Cannot assign to constant global variable '%s'.", name.Chars)
 			}
-			vm.globals[name] = peek(0)
+			vm.globals[name] = GlobalVar{Value: peek(0), IsConst: false}
 		case uint8(runtime.OP_GET_GLOBAL):
 			name := readString(frame)
 			if val, exists := vm.globals[name]; exists {
-				Push(val)
+				Push(val.Value)
 			} else {
 				return runtimeError("Global variable '%s' is not defined.", name.Chars)
 			}
@@ -1142,7 +1153,7 @@ func run() InterpretResult {
 			path := readString(frame).Chars
 			pathObj := runtime.NewObjString(path)
 			if cached, exists := vm.globals[pathObj]; exists {
-				Push(cached)
+				Push(cached.Value)
 				break
 			}
 			content, err := os.ReadFile(path)
@@ -1154,13 +1165,13 @@ func run() InterpretResult {
 				return INTERPRET_COMPILE_ERROR
 			}
 			closure := runtime.NewClosure(function)
-			vm.globals[pathObj] = runtime.ObjVal(closure)
+			vm.globals[pathObj] = GlobalVar{Value: runtime.ObjVal(closure), IsConst: false}
 			Push(runtime.ObjVal(closure))
 			if !callValue(runtime.ObjVal(closure), 0) {
 				return INTERPRET_RUNTIME_ERROR
 			}
-			Pop()                     // Pop the null return value
-			Push(vm.globals[pathObj]) // Push the closure back
+			Pop()                           // Pop the null return value
+			Push(vm.globals[pathObj].Value) // Push the closure back
 		case uint8(runtime.OP_USE):
 			libName := readString(frame).Chars
 			// Use the full library name as provided (e.g., "libmylib.so" or "mylib.dll")
@@ -1187,7 +1198,7 @@ func run() InterpretResult {
 			}
 			nativeFunc := createNativeFunc(funcName, cFunc, returnType, paramTypes)
 			nameObj := runtime.NewObjString(funcName)
-			vm.globals[nameObj] = runtime.Value{Type: runtime.VAL_OBJ, Obj: nativeFunc}
+			vm.globals[nameObj] = GlobalVar{Value: runtime.Value{Type: runtime.VAL_OBJ, Obj: nativeFunc}, IsConst: false}
 
 		case uint8(runtime.OP_MAP):
 			pairCount := int(readByte(frame))

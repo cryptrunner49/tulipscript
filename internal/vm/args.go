@@ -13,5 +13,5 @@ func defineArgs(args []string) {
 	}
 	// Define the "args" global as an array.
 	argsName := runtime.NewObjString("args")
-	vm.globals[argsName] = runtime.ObjVal(runtime.NewArray(elements))
+	vm.globals[argsName] = GlobalVar{Value: runtime.Value{Type: runtime.VAL_OBJ, Obj: runtime.ObjVal(runtime.NewArray(elements))}, IsConst: false}
 }

@@ -110,7 +110,7 @@ func synchronize() {
 			return
 		}
 		switch parser.current.Type {
-		case token.TOKEN_CLASS, token.TOKEN_FN, token.TOKEN_VAR, token.TOKEN_FOR,
+		case token.TOKEN_CLASS, token.TOKEN_FN, token.TOKEN_LET, token.TOKEN_FOR,
 			token.TOKEN_IF, token.TOKEN_WHILE, token.TOKEN_RETURN:
 			return
 		}
@@ -172,4 +172,23 @@ func CompileMatchCaseBody() []uint8 {
 	copy(body, currentChunk().Code()[start:end])
 	truncateCurrentChunk(start)
 	return body
+}
+
+// consumeOptionalSemicolon tries to match a semicolon.
+// If a semicolon is not found, it checks for a newline or end-of-file as acceptable.
+func consumeOptionalSemicolon() {
+	if match(token.TOKEN_SEMICOLON) {
+		return
+	}
+	// Check if we are at a natural statement end:
+	// If the current token is the end-of-file or a closing curly brace,
+	// or if the token is on a new line (using token.Line information).
+	if parser.current.Type == token.TOKEN_EOF ||
+		parser.current.Type == token.TOKEN_RIGHT_BRACE ||
+		parser.previous.Line < parser.current.Line {
+		// Implicit semicolon insertion.
+		return
+	}
+	// Otherwise, signal an error because neither a semicolon nor an appropriate line break was found.
+	errorAtCurrent("Expected ';' after statement.")
 }

@@ -351,7 +351,7 @@ func (l *Lexer) identifierType() token.TokenType {
 		return token.TOKEN_FALSE
 	case "for":
 		return token.TOKEN_FOR
-	case "fn":
+	case "function":
 		return token.TOKEN_FN
 	case "if":
 		return token.TOKEN_IF
@@ -367,8 +367,10 @@ func (l *Lexer) identifierType() token.TokenType {
 		return token.TOKEN_THIS
 	case "true":
 		return token.TOKEN_TRUE
-	case "var":
-		return token.TOKEN_VAR
+	case "let":
+		return token.TOKEN_LET
+	case "const":
+		return token.TOKEN_CONST
 	case "while":
 		return token.TOKEN_WHILE
 	case "iter":
