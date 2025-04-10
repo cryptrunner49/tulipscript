@@ -65,7 +65,7 @@ jobs:
           sha256sum tulip | awk '{print $1}' > SHA256-SUMS.txt
           sha512sum tulip | awk '{print $1}' > SHA512-SUMS.txt
 
-      - name: Upload Seed VM Artifact
+      - name: Upload TulipVM Artifact
         run: |
           gh release upload "${{ github.ref_name }}" tulip --clobber
         env:
@@ -79,7 +79,7 @@ jobs:
           asset_id=$(gh api repos/$repo/releases/tags/${{ github.ref_name }} --jq '.assets[] | select(.name=="tulip") | .id')
           echo "Updating asset id $asset_id with custom label"
           # Update the asset's label using the GitHub REST API via gh api
-          gh api repos/$repo/releases/assets/$asset_id --method PATCH --field label="Seed VM ${{ github.ref_name }} Ubuntu $UBUNTU_VERSION x64"
+          gh api repos/$repo/releases/assets/$asset_id --method PATCH --field label="TulipVM ${{ github.ref_name }} Ubuntu $UBUNTU_VERSION x64"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
