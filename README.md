@@ -1,6 +1,6 @@
 # 🌷 TulipScript
 
-**TulipScript** is a lightweight, expressive scripting language with JavaScript-inspired syntax. With emoji identifiers, modern constructs, and powerful native functions, TulipScript is perfect for quick scripts, educational projects, and imaginative coding experiments.
+**TulipScript** is a lightweight, expressive, JavaScript-inspired scripting language designed for simplicity and flexibility. Drawing from JavaScript’s familiar syntax, it adds unique features like Unicode and emoji identifiers, native functions, and modern programming constructs. TulipScript is perfect for quick scripts or experimenting with creative coding. Whether you're shuffling arrays, writing to files, or defining structs with cat emojis (🐱), TulipScript makes programming fun and accessible.
 
 ---
 
