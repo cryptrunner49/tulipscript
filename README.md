@@ -6,7 +6,7 @@ TulipScript is a lightweight, expressive, JavaScript-inspired scripting language
 
 ## Features
 
-- **Unicode & Emoji Support**: Use `π`, `挨拶`, or `🔢` as variable names.
+- **Unicode & Emoji Support**: Use `π`, `挨拶`, or `🌸` as variable names.
 - **JavaScript-Inspired Syntax**: Easy-to-learn constructs like `let`, `const`, `function`, `if`, and `for`.
 - **Native Functions**: Built-ins like `clock()`, `shuffle()`, and `random_between()`.
 - **Structs & Closures**: Define custom types and leverage functional programming.
