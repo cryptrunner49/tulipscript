@@ -378,4 +378,3 @@ println("25 percent of 1000:", 25 %% 1000)  // Outputs: 250
 **Explanation**:  
 
 - Includes arithmetic (`+`, `-`, `*`, `/`), exponentiation (`**`), integer division (`/_`), and percentage (`%%`).
-- Logical operators `&&` and `||` replace `and` and `or` for boolean operations.
