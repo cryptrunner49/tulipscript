@@ -12,7 +12,7 @@ Thank you for your interest in contributing to the TulipScript Project! We welco
 4. [Submitting Code Changes](#submitting-code-changes)
    - [Getting Started](#getting-started)
    - [Code Style Guidelines](#code-style-guidelines)
-   - [Submitting a Pull Request](#submitting-a-pull-request)
+   - [Submitting a Pull Request](#submitting-a-pull-request)a
 5. [Community Guidelines](#community-guidelines)
 6. [Contact](#contact)
 
@@ -24,7 +24,7 @@ There are several ways to contribute to the TulipScript project:
 
 - **Report Bugs**: Identify and report issues with the language or examples.
 - **Suggest Features**: Propose new language features, native functions, or example scripts.
-- **Improve Documentation**: Enhance the `SEED_USAGE.md`, this file, or add new guides.
+- **Improve Documentation**: Enhance the `TULIPSCRIPT_USAGE.md`, this file, or add new guides.
 - **Submit Code**: Add new `.tlp` example scripts, fix bugs, or improve the interpreter (if applicable).
 
 All contributions should align with the project’s goal of making TulipScript a simple, expressive, and Unicode-friendly scripting language.
@@ -97,7 +97,7 @@ Have an idea for a new feature or improvement?
 
 For `.tlp` scripts:
 
-- **Section Headers**: Use `// --- Section Name ---` and `println("--- Section Name ---");` for organization (see `SEED_USAGE.md`).
+- **Section Headers**: Use `// --- Section Name ---` and `println("--- Section Name ---");` for organization (see `TULIPSCRIPT_USAGE.md`).
 - **Print Statements**: Include descriptive labels (e.g., `println("Result:", value);`).
 - **Spacing**: Use consistent indentation (2 or 4 spaces) and line breaks for readability.
 - **Comments**: Add brief comments for complex logic (e.g., `// Base case for recursion`).
