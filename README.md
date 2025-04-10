@@ -31,20 +31,20 @@ To build and run the TulipScript VM, you’ll need:
 - pkg-config
 ```
 
-### Install on Ubuntu
+#### Install Requirements on Ubuntu
 
 ```bash
 sudo apt update
 sudo apt install golang libffi-dev libreadline-dev gcc pkg-config
 ```
 
-### Install on macOS
+#### Install Requirements on macOS
 
 ```bash
 brew install go libffi readline pkg-config
 ```
 
-### Building TulipScript
+### Building TulipScript VM
 
 1. Clone the repository:
 
