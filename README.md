@@ -1,50 +1,67 @@
-# TulipScript
+# 🌷 TulipScript
 
-TulipScript is a lightweight, expressive, JavaScript-inspired scripting language designed for simplicity and flexibility. Drawing from JavaScript’s familiar syntax, it adds unique features like Unicode and emoji identifiers, native functions, and modern programming constructs. TulipScript is perfect for quick scripts, educational purposes, or experimenting with creative coding. Whether you're shuffling arrays, writing to files, or defining structs with cat emojis (🐱), TulipScript makes programming fun and accessible.
-
----
-
-## Features
-
-- **Unicode & Emoji Support**: Use `π`, `挨拶`, or `🌸` as variable names.
-- **JavaScript-Inspired Syntax**: Easy-to-learn constructs like `let`, `const`, `function`, `if`, and `for`.
-- **Native Functions**: Built-ins like `clock()`, `shuffle()`, and `random_between()`.
-- **Structs & Closures**: Define custom types and leverage functional programming.
-- **File I/O**: Read and write files with `read_file()` and `write_file()`.
-- **Cross-Platform**: Runs on any system with the required dependencies.
-
-Explore more in the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md)!
+**TulipScript** is a lightweight, expressive scripting language with JavaScript-inspired syntax. With emoji identifiers, modern constructs, and powerful native functions, TulipScript is perfect for quick scripts, educational projects, and imaginative coding experiments.
 
 ---
 
-## Installation
+## 👩‍💻 Hello World
 
-### Requirements
-
-To build and run the TulipScript VM, you’ll need:
-
-```text
-- Go (golang)
-- libffi
-- readline
-- gcc
-- pkg-config
+```tulipscript
+let hello = "Hello, World!"
+println(hello)    // Outputs: Hello, World!
 ```
 
-#### Install Requirements on Ubuntu
+📖 Explore variables, structs, loops, and more in the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md).
+
+---
+
+## ✨ Features
+
+- **🌍 Unicode & Emoji Identifiers** — Name variables like `🌸` or `π`.
+- **🧠 JavaScript-Inspired Syntax** — Use familiar constructs like `let`, `const`, `function`, `if`, and `for`.
+- **⚙️ Native Functions** — Built-ins like `clock()`, `shuffle()`, and `random_between()`.
+- **🧱 Structs & Closures** — Define custom types and use functional constructs.
+- **📁 File I/O** — Read and write files with `read_file()` and `write_file()`.
+- **🖥 Cross-Platform** — Works on Linux and macOS with standard tooling.
+
+📚 Learn more in the [TulipScript Usage Guide →](TULIPSCRIPT_USAGE.md)
+
+---
+
+## 📦 Installation
+
+### ✅ Requirements
+
+- Linux (Debian, Ubuntu, Fedora, Arch, etc.) or macOS
+- [Go (Golang)](https://golang.org)
+- Dependencies: `gcc`, `pkg-config`, `make`, `libffi`, `readline`
+
+### 🧰 System Setup
+
+#### Option 1: Install via Script
+
+**System-wide installation (requires `sudo`)**:
 
 ```bash
-sudo apt update
-sudo apt install golang libffi-dev libreadline-dev gcc pkg-config
+curl -sL https://github.com/cryptrunner49/tulipscript/raw/refs/heads/main/install.sh | bash -s -- install --system
 ```
 
-#### Install Requirements on macOS
+**User-only installation (`$HOME/.local/bin`)**:
 
 ```bash
-brew install go libffi readline pkg-config
+curl -sL https://github.com/cryptrunner49/tulipscript/raw/refs/heads/main/install.sh | bash -s -- install --user
 ```
 
-### Building TulipScript VM
+#### Option 2: Manual Download
+
+```bash
+curl -LO https://github.com/cryptrunner49/tulipscript/releases/latest/download/tulip
+chmod +x tulip
+```
+
+---
+
+### 🛠 Build From Source
 
 1. Clone the repository:
 
@@ -62,49 +79,52 @@ brew install go libffi readline pkg-config
 3. Run a script:
 
    ```bash
-   ./bin/tulip sample/rpg_game.tlp
+   ./bin/tulip sample/rpg.tlp
    ```
 
 ---
 
-## Usage
+## 🧪 Platform-Specific Setup
 
-Try this simple example:
+### Ubuntu/Debian
 
-```tulipscript
-let hello = "Hello, TulipScript!"
-println(hello)  // Outputs: Hello, TulipScript!
-
-for (let i = 0; i < 3; i = i + 1) {
-    println("Count:", i)  // Outputs: Count: 0, Count: 1, Count: 2
-}
+```bash
+sudo apt update
+sudo apt install gcc pkg-config make golang libffi-dev libreadline-dev
 ```
 
-For detailed examples of variables, constants, structs, loops, and more, check out the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md).
+### macOS
+
+```bash
+brew install go pkg-config gcc make libffi readline
+```
 
 ---
 
-## Roadmap
+## 🗺 Roadmap
 
-Here’s what’s planned for TulipScript’s future:
+Coming soon to TulipScript:
 
-- [ ] **Pattern Matching**: Add expressive pattern matching for conditionals.
-- [ ] **Switch Case**: Implement a `switch` statement for multi-branch logic.
-- [ ] **Elif**: Extend `if` with `elif` for cleaner conditional chains.
-- [ ] **Enums**: Introduce enumerated types for structured data.
-- [ ] **Error Handling**: Add try-catch or similar mechanisms.
-- [ ] **Standard Library**: Expand with more utility functions.
+- [ ] **Pattern Matching** — More expressive conditionals.
+- [ ] **Switch Statement** — Cleaner multi-branch logic.
+- [ ] **Elif Support** — Less nesting, more clarity.
+- [ ] **Enums** — Organize data like a pro.
+- [ ] **Error Handling** — Try-catch or similar constructs.
+- [ ] **Standard Library** — More built-in power.
 
-See the [Issues](https://github.com/cryptrunner49/tulipscript/issues) tab for progress and to suggest features!
-
----
-
-## Contributing
-
-We’d love your help to make TulipScript better! Whether it’s adding examples, fixing bugs, or suggesting features, your contributions are welcome. Read our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
+🎯 Track progress or suggest features via [Issues →](https://github.com/cryptrunner49/tulipscript/issues)
 
 ---
 
-## License
+## 🤝 Contributing
 
+We’d love your help! Whether it's fixing bugs, improving docs, or proposing features—your contributions matter.
+
+📘 See the [Contributing Guide →](CONTRIBUTING.md) to get started.
+
+---
+
+## 📄 License
+
+TulipScript is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.  
 See the [LICENSE](LICENSE) file for full details.

@@ -37,7 +37,7 @@ func defineConstVariable(global uint8) {
 }
 
 func fnDeclaration() {
-	global := parseVariable("Expected a function name after 'fn' (e.g., 'fn myFunc()').")
+	global := parseVariable("Expected a function name after 'function' (e.g., 'fn myFunc()').")
 	markInitialized()
 	function(TYPE_FUNCTION)
 	defineVariable(global)
@@ -221,7 +221,7 @@ func modDeclarationField() (*runtime.ObjString, runtime.Value) {
 			nestedFieldNames = append(nestedFieldNames, nName)
 			nestedFieldDefaults = append(nestedFieldDefaults, nVal)
 		} else {
-			reportError("Expected 'var', 'fn', or 'mod' in nested module body.")
+			reportError("Expected 'var', 'function', or 'mod' in nested module body.")
 			synchronize()
 		}
 	}
@@ -315,7 +315,7 @@ func modDeclaration() {
 
 	// Parse module body
 	for !check(token.TOKEN_RIGHT_BRACE) && !check(token.TOKEN_EOF) {
-		if match(token.TOKEN_LET) {
+		if match(token.TOKEN_LET) || match(token.TOKEN_CONST) {
 			consume(token.TOKEN_IDENTIFIER, "Expected variable name in module declaration.")
 			fName := runtime.NewObjString(parser.previous.Start)
 			var defVal runtime.Value
@@ -358,7 +358,7 @@ func modDeclaration() {
 			fieldDefaults = append(fieldDefaults, nestedVal)
 			match(token.TOKEN_SEMICOLON)
 		} else {
-			reportError("Expected 'var', 'fn', or 'mod' declaration in module body.")
+			reportError("Expected 'let', 'const', 'function', or 'mod' declaration in module body.")
 			synchronize()
 		}
 	}

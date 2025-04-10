@@ -1,96 +1,45 @@
 # TulipScript Usage Guide
 
-Welcome to the TulipScript Usage Guide! TulipScript is a JavaScript-like scripting language inspired by JavaScript, blending familiar syntax with unique features like Unicode and emoji identifiers. It supports modern programming constructs and offers a variety of built-in features to enhance developer productivity. This README provides practical examples and explanations of TulipScript's core features, making it an ideal starting point for developers. Each section includes a detailed explanation.
+Welcome to the TulipScript Usage Guide! TulipScript is a JavaScript-inspired scripting language with modern constructs, Unicode/emoji support, and built-in features to enhance productivity. This guide walks through language features with practical examples.
 
 ---
 
 ## Table of Contents
 
-1. [Variables](#1-variables)
-2. [Constants](#2-constants)
-3. [Closures](#3-closures)
-4. [Fibonacci Recursive](#4-fibonacci-recursive)
-5. [Fibonacci Iterative](#5-fibonacci-iterative)
-6. [Structs and Control Flow](#6-structs-and-control-flow)
-7. [Arrays](#7-arrays)
-8. [File Operations](#8-file-operations)
-9. [Native Functions](#9-native-functions)
-10. [Modules](#10-modules)
-11. [Additional Features](#11-additional-features)
+1. [Variables](#1-variables)  
+2. [Closures](#2-closures)  
+3. [Fibonacci Recursive](#3-fibonacci-recursive)  
+4. [Fibonacci Iterative](#4-fibonacci-iterative)  
+5. [Structs and Control Flow](#5-structs-and-control-flow)  
+6. [Arrays](#6-arrays)  
+7. [File Operations](#7-file-operations)  
+8. [Native Functions](#8-native-functions)  
+9. [Modules](#9-modules)  
+10. [Import](#10-import)  
+11. [Additional Features](#11-additional-features)  
+12. [Unicode Support](#12-unicode-support)
 
 ---
 
 ## 1. Variables
 
-TulipScript supports mutable variables of various types, including numbers, strings, booleans, and null, with flexible naming using Unicode and emojis.
-
 ```tulipscript
-// Number
 let num = 42
-println("Number:", num)  // Outputs: Number: 42
+println("Number:", num)
 
-// String
 let message = "Hello, TulipScript!"
-println("Message:", message)  // Outputs: Message: Hello, TulipScript!
+println("Message:", message)
 
-// Boolean
 let isTrue = true
-println("Boolean:", isTrue)  // Outputs: Boolean: true
+println("Boolean:", isTrue)
 
-// Null
 let nothing = null
-println("Null:", nothing)  // Outputs: Null: null
-
-// Unicode and Emoji Names
-let π = 3.14
-println("Pi (π):", π)  // Outputs: Pi (π): 3.14
-
-let 挨拶 = "こんにちは"
-println("Greeting (挨拶):", 挨拶)  // Outputs: Greeting (挨拶): こんにちは
-
-let 🔢 = 100
-println("Number (🔢):", 🔢)  // Outputs: Number (🔢): 100
+println("Null:", nothing)
 ```
-
-**Explanation**:  
-
-- Use `let` to declare mutable variables with any value type: numbers, strings, booleans, or `null`.
-- TulipScript supports Unicode (e.g., `π`, `挨拶`) and emoji (e.g., `🔢`) variable names, making it highly expressive.
-- Semicolons are optional; statements are separated by line breaks or specific tokens.
-- The `println` function outputs values with optional labels for clarity.
 
 ---
 
-## 2. Constants
-
-Constants in TulipScript are defined with `const` and cannot be modified after their initial definition, providing immutable values.
-
-```tulipscript
-// Constant Number
-const maxScore = 100
-println("Max Score:", maxScore)  // Outputs: Max Score: 100
-// maxScore = 200  // Error: Cannot assign to constant variable 'maxScore'
-
-// Constant String
-const greeting = "Hello, World!"
-println("Greeting:", greeting)  // Outputs: Greeting: Hello, World!
-
-// Constant with Expression
-const doublePi = 2 * 3.14
-println("Double Pi:", doublePi)  // Outputs: Double Pi: 6.28
-```
-
-**Explanation**:  
-
-- Use `const` to define immutable values that cannot be reassigned after initialization.
-- Attempting to modify a constant (e.g., `maxScore = 200`) results in a runtime error.
-- Constants can be initialized with expressions (e.g., `2 * 3.14`), computed at definition time.
-
----
-
-## 3. Closures
-
-Closures in TulipScript allow inner functions to access variables from outer scopes, enabling powerful functional programming patterns.
+## 2. Closures
 
 ```tulipscript
 function outer() {
@@ -100,26 +49,18 @@ function outer() {
         let c = 3
         let d = 4
         function inner() {
-            println("Sum:", a + c + b + d)  // Accesses variables from outer scopes
+            println("Sum:", a + c + b + d)
         }
         inner()
     }
     middle()
 }
-outer()  // Outputs: Sum: 10
+outer()
 ```
-
-**Explanation**:  
-
-- Functions are defined with `function` (replacing `fn`) and can be nested.
-- The `inner` function captures `a` and `b` from `outer` and `c` and `d` from `middle`, summing to `10` (1 + 3 + 2 + 4).
-- Semicolons are omitted, relying on natural statement boundaries.
 
 ---
 
-## 4. Fibonacci Recursive
-
-This example computes the Fibonacci sequence recursively and measures execution time.
+## 3. Fibonacci Recursive
 
 ```tulipscript
 function fib(n) {
@@ -128,21 +69,13 @@ function fib(n) {
 }
 
 let start = clock()
-println("Fibonacci(16):", fib(16))  // Outputs: Fibonacci(16): 987
-printf("Time taken: %v seconds\n", clock() - start)  // Outputs: Time taken: <seconds>
+println("Fibonacci(16):", fib(16))
+printf("Time taken: %v seconds\n", clock() - start)
 ```
-
-**Explanation**:  
-
-- `fib` uses recursion with a base case (`n < 2`).
-- `clock()` returns the current time in seconds, used to measure performance.
-- `printf` provides formatted output, showing the time difference.
 
 ---
 
-## 5. Fibonacci Iterative
-
-An iterative approach to Fibonacci calculation, optimized for performance.
+## 4. Fibonacci Iterative
 
 ```tulipscript
 function fib(n) {
@@ -158,28 +91,19 @@ function fib(n) {
 }
 
 let start = clock()
-println("Fibonacci(16):", fib(16))  // Outputs: Fibonacci(16): 987
-printf("Time taken: %v seconds\n", clock() - start)  // Outputs: Time taken: <seconds>
+println("Fibonacci(16):", fib(16))
+printf("Time taken: %v seconds\n", clock() - start)
 ```
-
-**Explanation**:  
-
-- This version uses a `for` loop to iteratively compute Fibonacci numbers, updating `a` and `b` in each step.
-- It’s more efficient than recursion for large `n`, as shown by the shorter execution time.
-- The syntax `i = i + 1` increments the loop variable, though `i++` is also supported.
 
 ---
 
-## 6. Structs and Control Flow
-
-This script combines structs, functions, conditionals, and loops, with ASCII and Unicode examples.
+## 5. Structs and Control Flow
 
 ```tulipscript
-// ASCII Struct
 struct Animal {
-    species = "Unknown"
-    length = 50  // Average cat length in cm
-    height = 25  // Average cat height in cm
+    species = "Unknown",
+    length = 50,
+    height = 25
 }
 
 function describeAnimal(animal) {
@@ -193,59 +117,34 @@ if (favorite.length <= 50) {
 } else {
     println("Animal is longer than average")
 }
-println("Description:", describeAnimal(favorite))  // Outputs: Description: Cat: 50x25 cm
+println("Description:", describeAnimal(favorite))
 
 let count = 0
 while (count < 2) {
-    println("Meow #", to_str(count))  // Outputs: Meow #0, Meow #1
+    println("Meow #", to_str(count))
     count = count + 1
 }
-
-// Unicode Struct
-struct 猫 {
-    種類 = "不明"
-    年 = 2
-}
-let 子猫 = 猫()
-子猫.種類 = "たまちゃん"
-println("Cat name (子猫.種類):", 子猫.種類)  // Outputs: Cat name (子猫.種類): たまちゃん
 ```
-
-**Explanation**:  
-
-- Structs are defined with `struct`, allowing fields with default values (e.g., `species = "Unknown"`).
-- The `if` statement checks conditions, and `while` loops iterate based on a condition.
-- Unicode structs (e.g., `猫`) demonstrate multilingual support, with fields accessed via dot notation.
 
 ---
 
-## 7. Arrays
-
-TulipScript provides robust array support with built-in functions for manipulation.
+## 6. Arrays
 
 ```tulipscript
 let arr = [1, 2, 3, 4, 5]
-println("Original array:", array_to_string(arr))  // Outputs: Original array: [1, 2, 3, 4, 5]
+println("Original array:", array_to_string(arr))
 push(arr, 6)
-println("After push(6):", array_to_string(arr))  // Outputs: After push(6): [1, 2, 3, 4, 5, 6]
-println("Popped:", pop(arr))  // Outputs: Popped: 6
+println("After push(6):", array_to_string(arr))
+println("Popped:", pop(arr))
 
 for (let i = 0; i < len(arr); i = i + 1) {
-    println("Element", i, ":", arr[i])  // Outputs: Element 0: 1, Element 1: 2, etc.
+    println("Element", i, ":", arr[i])
 }
 ```
 
-**Explanation**:  
-
-- Arrays are created with square brackets (e.g., `[1, 2, 3]`).
-- Functions like `push`, `pop`, `len`, and `array_to_string` manipulate and inspect arrays.
-- The `for` loop iterates over indices, accessing elements with `arr[i]`.
-
 ---
 
-## 8. File Operations
-
-TulipScript supports basic file I/O operations for reading and writing text files.
+## 7. File Operations
 
 ```tulipscript
 let filename = "test.txt"
@@ -254,63 +153,58 @@ write_file(filename, content)
 println("Wrote to file:", filename)
 
 let readContent = read_file(filename)
-println("Read from file:", readContent)  // Outputs: Read from file: Hello from TulipScript!...
+println("Read from file:", readContent)
 ```
-
-**Explanation**:  
-
-- `write_file(filename, content)` writes a string to a file, overwriting if it exists.
-- `read_file(filename)` reads the entire file content as a string.
-- Useful for simple file-based persistence or logging.
 
 ---
 
-## 9. Native Functions
-
-TulipScript includes native functions for tasks like timing, randomization, and I/O.
+## 8. Native Functions
 
 ```tulipscript
 let time = clock()
-println("Current time:", time)  // Outputs: Current time: <timestamp>
+println("Current time:", time)
 
 let numbers = [1, 2, 3, 4, 5]
 shuffle(numbers)
-println("Shuffled array:", array_to_string(numbers))  // Outputs: Shuffled array: [e.g., 3, 1, 5, 2, 4]
+println("Shuffled array:", array_to_string(numbers))
 
 let randNum = random_between(1, 10)
-println("Random number (1-10):", randNum)  // Outputs: Random number (1-10): <random>
+println("Random number (1-10):", randNum)
 ```
-
-**Explanation**:  
-
-- `clock()` returns the current time in seconds, useful for timing code.
-- `shuffle(array)` randomizes array elements in place.
-- `random_between(min, max)` generates a random integer between `min` and `max` (inclusive).
 
 ---
 
-## 10. Modules
-
-TulipScript supports modular programming with `import` and `mod` for code organization.
+## 9. Modules
 
 ```tulipscript
-// math.tlp
-function add(a, b) {
-    return a + b
-}
-const PI = 3.14159
+// geometry.tlp
 
-// main.tlp
-import "math.tlp"
-println("Imported add(2, 3):", add(2, 3))  // Outputs: Imported add(2, 3): 5
-println("Imported PI:", PI)  // Outputs: Imported PI: 3.14159
+mod Geometry {
+    mod Shapes {
+        function area_circle(radius) {
+            return Geometry.PI * radius * radius
+        }
+
+        function perimeter_circle(radius) {
+            return 2 * Geometry.PI * radius
+        }
+    }
+
+    const PI = 3.14159
+}
 ```
 
-**Explanation**:  
+---
 
-- Use `import "filename.tlp"` to include external scripts.
-- Functions and constants from the imported module (e.g., `add`, `PI`) are directly accessible.
-- Modules help organize code into reusable units.
+## 10. Import
+
+```tulipscript
+// main.tlp
+import "geometry.tlp"
+
+println("Circle Area:", Geometry.Shapes.area_circle(5))
+println("Circle Perimeter:", Geometry.Shapes.perimeter_circle(5))
+```
 
 ---
 
@@ -321,12 +215,8 @@ println("Imported PI:", PI)  // Outputs: Imported PI: 3.14159
 ```tulipscript
 println("Enter a sentence:")
 let input = scanln()
-println("You entered:", input)  // Outputs: You entered: <user input>
+println("You entered:", input)
 ```
-
-**Explanation**:  
-
-- `scanln()` reads a line of user input from the console, returning it as a string.
 
 ### 11.2. String Formatting
 
@@ -334,14 +224,10 @@ println("You entered:", input)  // Outputs: You entered: <user input>
 let name = "Alice"
 let age = 25
 let formatted = sprintf("Name: %v, Age: %v", name, age)
-println("Formatted:", formatted)  // Outputs: Formatted: Name: Alice, Age: 25
+println("Formatted:", formatted)
 ```
 
-**Explanation**:  
-
-- `sprintf(format, ...args)` formats strings with placeholders (e.g., `%v` for values).
-
-### 11.3. Control Flow Enhancements
+### 11.3. Advanced Control Flow
 
 ```tulipscript
 let x = 5
@@ -354,27 +240,39 @@ if (x > 0) {
 }
 
 for (let i = 0; i < 3; i = i + 1) {
-    if (i == 1) continue  // Skip 1
-    println("i:", i)  // Outputs: i: 0, i: 2
+    if (i == 1) continue
+    println("i:", i)
 }
 ```
-
-**Explanation**:  
-
-- Supports `if`, `else if`, `else` for conditionals, and `continue`/`break` in loops.
-- Logical operators `&&` (and) and `||` (or) can be used in conditions (e.g., `if (x > 0 && x < 10)`).
 
 ### 11.4. Operators
 
 ```tulipscript
 let a = 10
 let b = 3
-println("Add:", a + b)  // Outputs: Add: 13
-println("Exponent:", a ** 2)  // Outputs: Exponent: 100
-println("Integer Div:", a /_ b)  // Outputs: Integer Div: 3
-println("25 percent of 1000:", 25 %% 1000)  // Outputs: 250
+println("Add:", a + b)
+println("Exponent:", a ** 2)
+println("Integer Div:", a /_ b)
+println("25 percent of 1000:", 25 %% 1000)
 ```
 
-**Explanation**:  
+---
 
-- Includes arithmetic (`+`, `-`, `*`, `/`), exponentiation (`**`), integer division (`/_`), and percentage (`%%`).
+## 12. Unicode Support
+
+```tulipscript
+let π = 3.14159
+println("Value of π:", π)
+
+let 🌷 = "Tulip emoji"
+println("Emoji variable 🌷:", 🌷)
+
+let greeting = "こんにちは世界"
+println("Greeting in Japanese:", greeting)
+
+struct 数学 {
+    半径 = 5
+}
+let 円 = 数学()
+println("半径 (radius):", 円.半径)
+```
