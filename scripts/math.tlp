@@ -1,0 +1,31 @@
+// Constants
+println("--- Math Demo ---")
+let pi = 3.14
+
+// Addition
+let sum = 5 + 3
+let add = pi + 2
+println("5 + 3:", sum)    // Outputs: 8
+println("pi + 2:", add)   // Outputs: 5.14
+
+// Subtraction
+let diff = 10 - 4
+let sub = 7 - pi
+println("10 - 4:", diff)  // Outputs: 6
+println("7 - pi:", sub)   // Outputs: 3.86
+
+// Multiplication
+let prod = 6 * 7
+let mult = pi * 2
+println("6 * 7:", prod)   // Outputs: 42
+println("pi * 2:", mult)  // Outputs: 6.28
+
+// Division
+let quot = 15 / 3
+let div = 10 / pi
+println("15 / 3:", quot)  // Outputs: 5
+println("10 / pi:", div)  // Outputs: 3.183
+
+// Modulo
+let result = 10 % 2
+println("10 % 2:", result)  // Outputs: 0

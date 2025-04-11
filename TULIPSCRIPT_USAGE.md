@@ -82,7 +82,7 @@ function fib(n) {
     if (n < 2) return n
     let a = 0
     let b = 1
-    for (let i = 2; i <= n; i = i + 1) {
+    for (let i = 2; i <= n; i++) {
         let temp = a + b
         a = b
         b = temp
@@ -137,7 +137,7 @@ push(arr, 6)
 println("After push(6):", array_to_string(arr))
 println("Popped:", pop(arr))
 
-for (let i = 0; i < len(arr); i = i + 1) {
+for (let i = 0; i < len(arr); i++) {
     println("Element", i, ":", arr[i])
 }
 ```
@@ -239,7 +239,7 @@ if (x > 0) {
     println("Zero")
 }
 
-for (let i = 0; i < 3; i = i + 1) {
+for (let i = 0; i < 3; i++) {
     if (i == 1) continue
     println("i:", i)
 }

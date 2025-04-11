@@ -1,0 +1,18 @@
+// Number
+const num = 42
+println(num)  // Outputs: 42
+
+// String
+const message = "Hello, World!"
+println(message)  // Outputs: Hello, World!
+
+// Boolean
+const isTrue = true
+println(isTrue)  // Outputs: true
+
+// Null
+const nothing = null
+println(nothing)  // Outputs: null
+
+const _number = 100
+println(_number)

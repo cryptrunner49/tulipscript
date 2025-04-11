@@ -1,0 +1,18 @@
+// Iterative Fibonacci Function
+println("--- Iterative Fibonacci ---")
+function fib(n) {
+    if (n < 2) return n
+    let a = 0
+    let b = 1
+    for (let i = 2; i <= n; i = i + 1) {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    return b
+}
+
+// Performance Test
+let start = clock()
+println("Fibonacci(16):", fib(16))         // Outputs: 987
+printf("Time taken: %v\n", clock() - start)

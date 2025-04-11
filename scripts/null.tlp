@@ -1,0 +1,4 @@
+let nothing = null
+let none = null
+println("Nothing:", nothing)  // Outputs: null
+println("None:", none)        // Outputs: null

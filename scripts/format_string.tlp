@@ -1,0 +1,14 @@
+function formatDemo() {
+    // Using sprintf for string formatting
+    let name = "Alice"
+    let age = 25
+    let formatted = sprintf("Name: %s, Age: %d", name, age)
+    println("Formatted string:", formatted)
+    
+    // Using errorf for error message formatting
+    let errorMsg = errorf("Failed to process user %s with code %d", name, 404)
+    println("Error message:", errorMsg)
+}
+
+println("\n=== Format String ===")
+formatDemo()

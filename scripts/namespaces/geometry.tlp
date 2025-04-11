@@ -1,0 +1,15 @@
+// Section: Module Definition
+// Defines the Geometry module with nested Shapes module and a constant
+mod Geometry {
+    // Section: Nested Shapes Module
+    // Contains functions related to geometric shapes
+    mod Shapes {
+        // Function to calculate the area of a circle given radius r
+        function area(r) {
+            return 3.14 * r * r
+        }
+    }
+
+    // Section: Constants
+    const PI = 3.14
+}

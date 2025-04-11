@@ -1,0 +1,6 @@
+// Section: Boolean Variables
+println("--- Boolean Demo ---")
+let truth = true
+let ok = false
+println("Truth value:", truth)  // Outputs: true
+println("Ok value:", ok)        // Outputs: false

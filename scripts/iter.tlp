@@ -1,0 +1,30 @@
+// For Loop Iteration
+println("--- For Loop ---")
+let arr = [10, 20, 30]
+for (let i = 0; i < len(arr); i++) {
+    println("Element at index", i, ":", arr[i])
+}
+
+// While Loop Iteration
+println("--- While Loop ---")
+let index = 0
+while (index < len(arr)) {
+    println("Element at index", index, ":", arr[index])
+    index = index + 1
+}
+
+// Manual Iterator with While
+println("--- Manual Iterator ---")
+let arr = [10, 20, 30]
+let it = array_iter(arr)
+while (!iter_done(it)) {
+    let value = iter_value(it)
+    println("Iterator value:", value)
+    iter_next(it)
+}
+
+// Iterator Loop
+println("--- Iterator Loop ---")
+iter (let item in [10, 20, 30]) {
+    println("Item:", item)
+}

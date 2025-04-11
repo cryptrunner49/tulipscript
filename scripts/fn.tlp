@@ -1,0 +1,12 @@
+function greet(name) {
+    return "Hello, " + name + "!"
+}
+let msg = greet("World")
+println("Greeting:", msg)  // Outputs: Hello, World!
+
+// Section: Addition Function
+function add(a, b) {
+    return a + b
+}
+let total = add(5, 3)
+println("Sum:", total)  // Outputs: 8

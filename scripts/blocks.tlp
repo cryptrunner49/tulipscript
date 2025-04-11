@@ -1,0 +1,8 @@
+// Section: Block Scope Demonstration
+println("--- Block Scope ---")
+let x = 10
+{
+    let x = 20       // Shadows the outer x
+    println("Inner scope x:", x)  // Outputs: 20
+}
+println("Outer scope x:", x)      // Outputs: 10

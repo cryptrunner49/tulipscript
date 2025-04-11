@@ -1,0 +1,15 @@
+// Nested Functions and Closures
+function outer() {
+    let a = 1
+    let b = 2
+    function middle() {
+        let c = 3
+        let d = 4
+        function inner() {
+            println("Sum:", a + c + b + d)  // Outputs: 10
+        }
+        inner()
+    }
+    middle()
+}
+outer()
