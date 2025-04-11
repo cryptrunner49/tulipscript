@@ -462,7 +462,7 @@ func useDeclaration() {
 	// Parse closing brace: }
 	consume(token.TOKEN_RIGHT_BRACE, "Expected '}' after function declarations.")
 
-	// Expect semicolon after use statement
+	// Optional semicolon after use statement
 	consumeOptionalSemicolon()
 }
 
