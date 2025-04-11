@@ -2,20 +2,20 @@
 // Marks the start of the script output
 
 // Section: Importing Math Module
-import "math.seed"
+import "math.tlp"
 
 // Demonstrate math module functions and variables
 println("---------------------------")
-println("math.seed add():", add(2, 3)) // Outputs: 5
-println("math.seed PI:", PI) // Outputs: 3.14159
+println("math.tlp add():", add(2, 3)) // Outputs: 5
+println("math.tlp PI:", PI) // Outputs: 3.14159
 println("---------------------------")
 
 // Section: Importing Geometry Module
-import "geometry.seed"
+import "geometry.tlp"
 
 // Access Geometry module's PI and Shapes.area
-println("geometry.seed area():", Geometry.Shapes.area(2)) // Outputs: 12.56
-println("geometry.seed PI:", Geometry.PI) // Outputs: 3.14
+println("geometry.tlp area():", Geometry.Shapes.area(2)) // Outputs: 12.56
+println("geometry.tlp PI:", Geometry.PI) // Outputs: 3.14
 println("---------------------------")
 
 // Section: Module Aliasing with 'mod as'
