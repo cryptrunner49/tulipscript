@@ -111,7 +111,7 @@ func structDeclaration() {
 			emitByte(defaultConst)
 		}
 	} else {
-		consume(token.TOKEN_SEMICOLON, "Expected '{' to define fields or ';' for an empty struct.")
+		match(token.TOKEN_SEMICOLON) // The ';' is optional
 		emitBytes(byte(runtime.OP_STRUCT), nameConstant)
 		emitByte(0)
 	}

@@ -326,7 +326,13 @@ func parsePrecedence(precedence Precedence) {
 	}
 	canAssign := precedence <= PREC_ASSIGNMENT
 	prefixRule(canAssign)
+
+	// Only proceed with infix parsing if the next token's precedence exceeds the current level
 	for precedence <= getRule(parser.current.Type).Precedence {
+		// Special case: if in a statement context and hitting '{', don't treat as infix unless after an identifier
+		if parser.current.Type == token.TOKEN_LEFT_BRACE && parser.previous.Type != token.TOKEN_IDENTIFIER {
+			break // Let statement() handle it as a block
+		}
 		advance()
 		infixRule := getRule(parser.previous.Type).Infix
 		infixRule(canAssign)
