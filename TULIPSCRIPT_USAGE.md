@@ -148,7 +148,7 @@ for (let i = 0; i < len(arr); i = i + 1) {
 
 ```tulipscript
 let filename = "test.txt"
-let content = "Hello from TulipScript!\nWritten on April 09, 2025."
+let content = "This is a file handling example.\nDemonstrating how to read and write files."
 write_file(filename, content)
 println("Wrote to file:", filename)
 
