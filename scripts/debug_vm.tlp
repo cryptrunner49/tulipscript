@@ -1,2 +1,5 @@
 enable_debug()
 enable_trace()
+
+disable_debug()
+disable_trace()
