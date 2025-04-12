@@ -158,9 +158,7 @@ func compileModuleFunction() runtime.Value {
 		emitByte(byteToEmit)
 		emitByte(index)
 	}
-	// Here we simulate retrieving the closure value.
-	// (In a full implementation you would fetch the closure from the constant pool,
-	// but for our purposes we create a new closure object from fnObj.)
+
 	return runtime.Value{Type: runtime.VAL_OBJ, Obj: runtime.NewClosure(fnObj)}
 }
 
