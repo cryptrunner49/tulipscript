@@ -144,7 +144,47 @@ for (let i = 0; i < len(arr); i++) {
 
 ---
 
-## 7. File Operations
+## 7. Maps
+
+```seed
+// Basic Map Operations
+println("--- Map Demo ---");
+var map = { "name": "Alice", "age": 30 };
+println("Name:", map["name"]);  // Outputs: Alice
+println("Age:", map["age"]);    // Outputs: 30
+map["age"] = 31;
+println("Updated age:", map["age"]);  // Outputs: 31
+
+// Map Functions
+println("--- Map Functions ---");
+var m = {"a": 1, "b": 2};
+println("Initial map:", m);
+map_remove(m, "a");
+println("After removing 'a':", m);
+println("Contains key 'b':", map_contains_key(m, "b"));
+println("Contains value 2:", map_contains_value(m, 2));
+println("Map size:", map_size(m));
+println("Keys:", map_keys(m));
+println("Values:", map_values(m));
+map_clear(m);
+println("After clear:", m);
+
+// Map Addition
+println("--- Map Addition ---");
+var a = {"x": 1, "y": 2};
+var b = {"y": 3, "z": 4};
+println("a + b:", a + b);
+
+// Map Subtraction
+println("--- Map Subtraction ---");
+var a = {"x": 1, "y": 2, "z": 3};
+var b = {"y": null, "w": null};
+println("a - b:", a - b);
+```
+
+---
+
+## 8. File Operations
 
 ```tulipscript
 let filename = "test.txt"
@@ -158,7 +198,7 @@ println("Read from file:", readContent)
 
 ---
 
-## 8. Native Functions
+## 9. Native Functions
 
 ```tulipscript
 let time = clock()
@@ -174,7 +214,7 @@ println("Random number (1-10):", randNum)
 
 ---
 
-## 9. Modules
+## 10. Modules
 
 ```tulipscript
 // geometry.tlp
@@ -196,7 +236,7 @@ mod Geometry {
 
 ---
 
-## 10. Import
+## 11. Import
 
 ```tulipscript
 // main.tlp
@@ -208,9 +248,9 @@ println("Circle Perimeter:", Geometry.Shapes.perimeter_circle(5))
 
 ---
 
-## 11. Additional Features
+## 12. Additional Features
 
-### 11.1. Input Handling
+### 12.1. Input Handling
 
 ```tulipscript
 println("Enter a sentence:")
@@ -218,7 +258,7 @@ let input = scanln()
 println("You entered:", input)
 ```
 
-### 11.2. String Formatting
+### 12.2. String Formatting
 
 ```tulipscript
 let name = "Alice"
@@ -227,7 +267,7 @@ let formatted = sprintf("Name: %v, Age: %v", name, age)
 println("Formatted:", formatted)
 ```
 
-### 11.3. Advanced Control Flow
+### 12.3. Advanced Control Flow
 
 ```tulipscript
 let x = 5
@@ -246,7 +286,7 @@ for (let i = 0; i < 3; i++) {
 }
 ```
 
-### 11.4. Operators
+### 12.4. Operators
 
 ```tulipscript
 let a = 10
@@ -259,7 +299,7 @@ println("25 percent of 1000:", 25 %% 1000)
 
 ---
 
-## 12. Unicode Support
+## 13. Unicode Support
 
 ```tulipscript
 let π = 3.14159
