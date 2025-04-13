@@ -146,7 +146,7 @@ for (let i = 0; i < len(arr); i++) {
 
 ## 7. Maps
 
-```seed
+```tulipscript
 // Basic Map Operations
 println("--- Map Demo ---")
 let map = { "name": "Alice", "age": 30 }
