@@ -240,7 +240,8 @@ if (x > 0) {
 }
 
 for (let i = 0; i < 3; i++) {
-    if (i == 1) continue
+    if (i == 1) continue // Skip the iteration when i is 1
+    if (i == 2) break    // Exit the loop when i is 2
     println("i:", i)
 }
 ```
