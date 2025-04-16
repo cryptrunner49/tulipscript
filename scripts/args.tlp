@@ -1,7 +1,7 @@
 // Section: Command-line Arguments Processing
 // Initializes verbose flag and processes command-line arguments
 let verbose = false
-for (let i = 0; i < args.length; i++) {
+for (let i = 0; i < args.length-1; i++) {
     if (args[i] == "--verbose") {
         verbose = true
     }
