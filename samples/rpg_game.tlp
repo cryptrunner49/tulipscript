@@ -1,3 +1,5 @@
+// RPG Game in TulipScript
+
 // Define the Player struct
 struct Player {
     name = "",

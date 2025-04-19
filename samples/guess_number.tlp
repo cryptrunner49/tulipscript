@@ -1,0 +1,38 @@
+// Guess the Number Game in TulipScript
+
+// Main game function
+function main() {
+    println("Welcome to the Guess the Number game!")
+    println("I'm thinking of a number between 1 and 100.")
+
+    // Generate a random target number between 1 and 100.
+    const target = random_between(1, 100)
+    let guess = 0
+    let attempts = 0
+
+    while (guess != target) {
+        println("Enter your guess (1-100):")
+        guess = parse_int(scanln())
+        attempts = attempts + 1
+
+        if (guess < target) {
+            println("Too low! Try again.")
+        } else if (guess > target) {
+            println("Too high! Try again.")
+        } else {
+            println("Congratulations! You guessed the number!")
+            println("Total attempts: " + to_str(attempts))
+        }
+    }
+
+    // Define a map to showcase game statistics
+    let stats = {
+        "attempts": attempts,
+        "target": target
+    };
+    println("Game Stats:")
+    println(stats)
+}
+
+// Start the game
+main()
