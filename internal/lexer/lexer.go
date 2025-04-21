@@ -81,21 +81,29 @@ func ScanToken() token.Token {
 	case '-':
 		if lexer.match('-') {
 			return lexer.makeToken(token.TOKEN_MINUS_MINUS)
+		} else if lexer.match('=') {
+			return lexer.errorToken("Compound assignment operator '-=' is not supported.")
 		}
 		return lexer.makeToken(token.TOKEN_MINUS)
 	case '+':
 		if lexer.match('+') {
 			return lexer.makeToken(token.TOKEN_PLUS_PLUS)
+		} else if lexer.match('=') {
+			return lexer.errorToken("Compound assignment operator '+=' is not supported.")
 		}
 		return lexer.makeToken(token.TOKEN_PLUS)
 	case '*':
 		if lexer.match('*') {
 			return lexer.makeToken(token.TOKEN_STAR_STAR)
+		} else if lexer.match('=') {
+			return lexer.errorToken("Compound assignment operator '*=' is not supported.")
 		}
 		return lexer.makeToken(token.TOKEN_STAR)
 	case '/':
 		if lexer.match('_') {
 			return lexer.makeToken(token.TOKEN_FLOOR)
+		} else if lexer.match('=') {
+			return lexer.errorToken("Compound assignment operator '/=' is not supported.")
 		}
 		return lexer.makeToken(token.TOKEN_SLASH)
 	case '%':
