@@ -65,7 +65,7 @@ function combat(player, enemy) {
             if (damage < 1) damage = 1
             enemy.health = enemy.health - damage
             println("You dealt " + to_str(damage) + " damage to the enemy.")
-        } else if (choice == "2") {
+        } | (choice == "2") {
             if (len(player.inventory) > 0) {
                 println("Your inventory:")
                 for (let i = 0; i < len(player.inventory); i++) {
@@ -121,13 +121,13 @@ function main() {
         player.maxHealth = 120
         player.attack = 12
         player.defense = 8
-    } else if (classChoice == "2") {
+    } | (classChoice == "2") {
         player.class = "Mage"
         player.health = 80
         player.maxHealth = 80
         player.attack = 15
         player.defense = 3
-    } else if (classChoice == "3") {
+    } | (classChoice == "3") {
         player.class = "Archer"
         player.health = 100
         player.maxHealth = 100
@@ -160,14 +160,14 @@ function main() {
             let action = location["actions"][actionIndex]
             if (action == "Go to Forest") {
                 currentLocation = "Forest"
-            } else if (action == "Go to Cave") {
+            } | (action == "Go to Cave") {
                 currentLocation = "Cave"
-            } else if (action == "Go to Town") {
+            } | (action == "Go to Town") {
                 currentLocation = "Town"
-            } else if (action == "Rest") {
+            } | (action == "Rest") {
                 player.health = player.maxHealth
                 println("You rested and restored your health to full.")
-            } else if (action == "Fight Enemy") {
+            } | (action == "Fight Enemy") {
                 if (len(location["enemies"]) > 0) {
                     let enemyName = location["enemies"][random_between(0, len(location["enemies"]) - 1)]
                     let enemyStats = enemies[enemyName]
@@ -201,7 +201,7 @@ function main() {
                 } else {
                     println("There are no enemies here.")
                 }
-            } else if (action == "Fight Dragon") {
+            } | (action == "Fight Dragon") {
                 let enemyStats = enemies["Dragon"]
                 let enemy = Enemy()
                 enemy.name = "Dragon"

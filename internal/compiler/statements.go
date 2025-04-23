@@ -14,19 +14,71 @@ func expressionStatement() {
 }
 
 func ifStatement() {
+	// List to store jump offsets for patching when exiting the entire if statement
+	var endJumps []int
+
+	// Parse the initial if condition
 	consume(token.TOKEN_LEFT_PAREN, "Expected '(' after 'if' to start condition.")
 	expression()
 	consume(token.TOKEN_RIGHT_PAREN, "Expected ')' after if condition (e.g., 'if (x > 0)').")
+
+	// Emit jump if the condition is false, to skip the then branch
 	thenJump := emitJump(byte(runtime.OP_JUMP_IF_FALSE))
-	emitByte(byte(runtime.OP_POP))
+	emitByte(byte(runtime.OP_POP)) // Pop condition result
+
+	// Compile the then branch (should be a statement, e.g., block)
 	statement()
+
+	// Jump to the end of the entire if statement after the then branch
 	elseJump := emitJump(byte(runtime.OP_JUMP))
+	endJumps = append(endJumps, elseJump)
+
+	// Patch the thenJump to point to the start of the next clause
 	patchJump(thenJump)
-	emitByte(byte(runtime.OP_POP))
+	emitByte(byte(runtime.OP_POP)) // Pop condition result for false case
+
+	// Handle chained | (else-if) clauses
+	for match(token.TOKEN_PIPE) {
+		// Check for condition starting with '('
+		if !check(token.TOKEN_LEFT_PAREN) {
+			// If no '(', assume it's not a condition and let the parser handle the block or error
+			statement()
+			// Jump to the end after this branch
+			elseJump = emitJump(byte(runtime.OP_JUMP))
+			endJumps = append(endJumps, elseJump)
+			continue
+		}
+
+		// Parse the else-if condition
+		consume(token.TOKEN_LEFT_PAREN, "Expected '(' after '|' for else-if condition.")
+		expression()
+		consume(token.TOKEN_RIGHT_PAREN, "Expected ')' after else-if condition.")
+
+		// Emit jump if the condition is false, to skip this branch
+		thenJump = emitJump(byte(runtime.OP_JUMP_IF_FALSE))
+		emitByte(byte(runtime.OP_POP)) // Pop condition result
+
+		// Compile the else-if branch
+		statement()
+
+		// Jump to the end of the entire if statement after this branch
+		elseJump = emitJump(byte(runtime.OP_JUMP))
+		endJumps = append(endJumps, elseJump)
+
+		// Patch the thenJump to point to the next clause or else
+		patchJump(thenJump)
+		emitByte(byte(runtime.OP_POP)) // Pop condition result for false case
+	}
+
+	// Handle the optional else clause
 	if match(token.TOKEN_ELSE) {
 		statement()
 	}
-	patchJump(elseJump)
+
+	// Patch all jumps to the end of the if statement
+	for _, jump := range endJumps {
+		patchJump(jump)
+	}
 }
 
 func whileStatement() {

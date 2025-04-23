@@ -17,7 +17,7 @@ function main() {
 
         if (guess < target) {
             println("Too low! Try again.")
-        } else if (guess > target) {
+        } | (guess > target) {
             println("Too high! Try again.")
         } else {
             println("Congratulations! You guessed the number!")
