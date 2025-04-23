@@ -50,14 +50,14 @@ println("!false:", notOk)  // Outputs: true
 
 // Logical AND
 println("--- Logical AND Demo ---")
-let _and = true and false
-let both = true and true
+let _and = true && false
+let both = true && true
 println("true and false:", _and)  // Outputs: false
 println("true and true:", both)   // Outputs: true
 
 // Logical OR
 println("--- Logical OR Demo ---")
-let _or = false or true
-let either = false or false
+let _or = false || true
+let either = false || false
 println("false or true:", _or)     // Outputs: true
 println("false or false:", either) // Outputs: false

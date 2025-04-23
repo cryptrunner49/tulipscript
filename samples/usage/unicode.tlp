@@ -33,8 +33,8 @@ for (let 回 = 0; 回 < 3; 回 = 回 + 1) {
     println("Loop count:", to_str(回), "🔢")  // Outputs: Loop count: 0🔢, Loop count: 1🔢, Loop count: 2🔢
 }
 
-// --- Unicode and Emoji letiables ---
-println("--- Unicode and Emoji letiables ---")
+// --- Unicode and Emoji variables ---
+println("--- Unicode and Emoji variables ---")
 let 挨拶 = "こんにちは"
 println("挨拶:", 挨拶)  // Outputs: こんにちは
 let 🔢 = 100

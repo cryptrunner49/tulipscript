@@ -9,18 +9,8 @@ package main
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-// Helper wrapper that inserts a literal tab character.
-// Using rl_tab_insert as an alternative.
-static int self_insert_wrapper(int count, int key) {
-    return rl_tab_insert(count, key);
-}
-
-// Bind the tab key to self_insert_wrapper.
-// This function performs the binding completely in C so that pointer issues are avoided.
-static void bind_tab_key() {
-    rl_bind_key('\t', self_insert_wrapper);
-}
+static int self_insert_wrapper(int count, int key) { return rl_tab_insert(count, key); }
+static void bind_tab_key() { rl_bind_key('\t', self_insert_wrapper); }
 */
 import "C"
 
@@ -75,12 +65,10 @@ func showVersion() {
 }
 
 func main() {
-	// Bind the tab key so that it inserts a literal tab instead of invoking completion.
 	C.bind_tab_key()
 
-	// Handle command-line arguments
 	if len(os.Args) > 1 {
-		switch arg := os.Args[1]; arg {
+		switch os.Args[1] {
 		case "-h", "--help":
 			showUsage()
 			os.Exit(0)
@@ -90,11 +78,9 @@ func main() {
 		}
 	}
 
-	// Initialize VM with arguments
 	vm.InitVM(os.Args)
 	defer vm.FreeVM()
 
-	// Determine mode: REPL or script execution
 	if len(os.Args) == 1 {
 		fmt.Println("tulip REPL - TulipScript Virtual Machine (type Ctrl+D to exit)")
 		repl()
@@ -117,11 +103,10 @@ func countBlocks(input string) int {
 }
 
 func repl() {
-	var buffer strings.Builder // Accumulate multi-line input
-	blockDepth := 0            // Track open blocks
+	var buffer strings.Builder
+	blockDepth := 0
 
 	for {
-		// Use ">>> " when not in a block, otherwise the simple "... " prompt
 		prompt := ">>> "
 		if blockDepth > 0 {
 			prompt = "... "
@@ -130,7 +115,7 @@ func repl() {
 		line := C.readline(cPrompt)
 		C.free(unsafe.Pointer(cPrompt))
 
-		if line == nil { // EOF (Ctrl+D)
+		if line == nil {
 			fmt.Println("\nExiting REPL")
 			break
 		}
@@ -139,18 +124,15 @@ func repl() {
 		C.free(unsafe.Pointer(line))
 
 		if len(input) == 0 && blockDepth == 0 {
-			continue // Skip empty lines unless in a block
+			continue
 		}
 
-		// Add input to the buffer with a newline when necessary.
 		if buffer.Len() > 0 {
 			buffer.WriteString("\n")
 		}
 		buffer.WriteString(input)
 
-		// Update block depth based on the input.
 		blockDepth += countBlocks(input)
-
 		if blockDepth < 0 {
 			fmt.Fprintf(os.Stderr, "REPL error: Unmatched closing brace '}'\n")
 			buffer.Reset()
@@ -158,11 +140,8 @@ func repl() {
 			continue
 		}
 
-		// Once all blocks are closed, interpret the accumulated input.
 		if blockDepth == 0 {
 			source := buffer.String()
-
-			// Add input to history only when the block is complete.
 			historyEntry := C.CString(source)
 			C.add_history(historyEntry)
 			C.free(unsafe.Pointer(historyEntry))
@@ -170,16 +149,14 @@ func repl() {
 			result := vm.Interpret(source, "<repl>")
 			switch result {
 			case vm.INTERPRET_OK:
-				// Successful execution, no output needed.
+				// Successful execution
 			case vm.INTERPRET_COMPILE_ERROR:
 				fmt.Fprintf(os.Stderr, "Compilation error in REPL\n")
 			case vm.INTERPRET_RUNTIME_ERROR:
 				fmt.Fprintf(os.Stderr, "Runtime error in REPL\n")
 			default:
-				fmt.Fprintf(os.Stderr, "Unknown error in REPL: %v\n", result)
+				fmt.Fprintf(os.Stderr, "Unknown error in REPL: %d\n", result)
 			}
-
-			// Reset the buffer after interpreting.
 			buffer.Reset()
 		}
 	}
@@ -191,11 +168,10 @@ func runFile(path string) {
 		fmt.Fprintf(os.Stderr, "Error reading file '%s': %v\n", path, err)
 		os.Exit(74)
 	}
-
 	result := vm.Interpret(string(source), path)
 	switch result {
 	case vm.INTERPRET_OK:
-		// Successful execution, exit silently.
+		// Successful execution
 	case vm.INTERPRET_COMPILE_ERROR:
 		fmt.Fprintf(os.Stderr, "Compilation error in '%s'\n", path)
 		os.Exit(65)
@@ -203,7 +179,7 @@ func runFile(path string) {
 		fmt.Fprintf(os.Stderr, "Runtime error in '%s'\n", path)
 		os.Exit(70)
 	default:
-		fmt.Fprintf(os.Stderr, "Unknown error: %v\n", result)
+		fmt.Fprintf(os.Stderr, "Unknown error: %d\n", result)
 		os.Exit(1)
 	}
 }

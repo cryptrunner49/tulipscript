@@ -136,6 +136,9 @@ func ScanToken() token.Token {
 	case '\'':
 		return lexer.char()
 	case '|':
+		if lexer.match('|') {
+			return lexer.makeToken(token.TOKEN_OR)
+		}
 		return lexer.makeToken(token.TOKEN_PIPE)
 	case '?':
 		return lexer.makeToken(token.TOKEN_QUESTION)
@@ -365,8 +368,6 @@ func (l *Lexer) identifierType() token.TokenType {
 		return token.TOKEN_IF
 	case "null":
 		return token.TOKEN_NULL
-	case "||":
-		return token.TOKEN_OR
 	case "return":
 		return token.TOKEN_RETURN
 	case "struct":

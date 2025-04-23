@@ -15,13 +15,17 @@ function main() {
         guess = parse_int(scanln())
         attempts = attempts + 1
 
-        if (guess < target) {
-            println("Too low! Try again.")
-        } | (guess > target) {
-            println("Too high! Try again.")
+        if (get_runtype(guess) == "number") {
+            if (guess < target) {
+                println("Too low! Try again.")
+            } | (guess > target) {
+                println("Too high! Try again.")
+            } else {
+                println("Congratulations! You guessed the number!")
+                println("Total attempts: " + to_str(attempts))
+            }
         } else {
-            println("Congratulations! You guessed the number!")
-            println("Total attempts: " + to_str(attempts))
+            println("Invalid choice!")
         }
     }
 
