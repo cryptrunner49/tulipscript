@@ -1,4 +1,4 @@
-# 🌷 TulipScript
+# 🌷📜 TulipScript
 
 **TulipScript** is a lightweight, expressive scripting language inspired by JavaScript — but more fun. It supports Unicode and emoji identifiers, functional programming, file I/O, and is embeddable as a shared C library. Whether you're scripting a game or experimenting with creative code, TulipScript makes it joyful.
 
@@ -29,7 +29,7 @@ println(hello)  // Outputs: Hello, World!
 
 ## 🔽 Download
 
-Get the latest prebuilt binaries and development files from the [Releases Page →](https://github.com/cryptrunner49/tulipscript/releases/latest):
+Get the latest prebuilt binaries and development files from the [Releases →](https://github.com/cryptrunner49/tulipscript/releases/latest):
 
 - **🌷 VM Executable**: [Download `tulip`](https://github.com/cryptrunner49/tulipscript/releases/latest/download/tulip)
 - **🔧 Development Files**:
