@@ -7,7 +7,11 @@ use std::ptr;
 #[link(name = "tulip")]
 unsafe extern "C" {
     fn Tulip_Init(argc: c_int, argv: *const *mut c_char);
-    fn Tulip_Interpret(csrc: *const c_char, cname: *const c_char) -> c_int;
+    fn Tulip_InterpretWithResult(
+        csrc: *const c_char,
+        cname: *const c_char,
+        exit_code: *mut c_int,
+    ) -> *mut c_char;
     fn Tulip_RunFile(cpath: *const c_char) -> c_int;
     fn Tulip_Free();
 }
@@ -26,13 +30,12 @@ fn main() {
         .collect();
     argv.push(ptr::null_mut()); // Null-terminate argv
 
-    // Initialize TulipScript VM
+    // Initialize Tulip
     unsafe {
         Tulip_Init(argc, argv.as_ptr());
     }
 
-    // Run Tulip script
-    let result: c_int;
+    // Run Seed script
     if args.len() > 1 {
         // Run script from file
         let path = match CString::new(args[1].as_str()) {
@@ -42,21 +45,27 @@ fn main() {
                 return;
             }
         };
-        result = unsafe { Tulip_RunFile(path.as_ptr()) };
+        unsafe { Tulip_RunFile(path.as_ptr()) };
     } else {
         // Run inline script
-        let source = CString::new("println(\"Hello from TulipScript!\");").expect("Failed to create source CString");
+        let source = CString::new("1 + 2;").expect("Failed to create source CString");
         let name = CString::new("<test>").expect("Failed to create name CString");
-        result = unsafe { Tulip_Interpret(source.as_ptr(), name.as_ptr()) };
+        let mut exit_code: c_int = 0;
+        let result = unsafe { Tulip_InterpretWithResult(source.as_ptr(), name.as_ptr(), &mut exit_code) };
+        if exit_code == 0 {
+            let result_str = unsafe { std::ffi::CStr::from_ptr(result) }
+                .to_str()
+                .expect("Failed to convert result to string");
+            println!("Last value: {}", result_str);
+        } else {
+            println!("Execution failed with code {}", exit_code);
+        }
+        unsafe {
+            libc::free(result as *mut libc::c_void);
+        }
     }
 
-    // Print result
-    println!("Result: {}", result);
-    if result != 0 {
-        eprintln!("TulipScript execution failed with code {}", result);
-    }
-
-    // Free TulipScript VM
+    // Free Tulip
     unsafe {
         Tulip_Free();
     }

@@ -207,7 +207,7 @@ func emitBytes(b1, b2 byte) {
 
 // emitReturn writes the return opcode to the chunk, ending the function.
 func emitReturn() {
-	emitByte(byte(runtime.OP_NULL))
+	emitByte(byte(runtime.OP_RNULL))
 	emitByte(byte(runtime.OP_RETURN))
 }
 

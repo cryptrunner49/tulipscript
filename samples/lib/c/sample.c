@@ -1,23 +1,28 @@
 #include "libtulip.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char** argv) {
     Tulip_Init(argc, argv);
 
-    int result;
+    
     if (argc > 1) {
-        result = Tulip_RunFile(argv[1]);
+        Tulip_RunFile(argv[1]);
     } else {
-        result = Tulip_Interpret("println(\"Hello from TulipScript!\");", "<test>");
-    }
+        int exitCode;
+        char* result;
 
-    printf("Result: %d\n", result);
+        result = Tulip_InterpretWithResult("1 + 2;", "<test>", &exitCode);
+
+        if (exitCode == 0) {
+            printf("Last value: %s\n", result);
+        } else {
+            printf("Execution failed with code %d\n", exitCode);
+        }
+
+        free(result); // Free the returned string
+    }
+    
     Tulip_Free();
     return 0;
 }
-
-/*
-make build
-gcc -o samples/lib/test samples/lib/test.c -Ibin -Lbin -lseedvm
-LD_LIBRARY_PATH=bin ./samples/lib/test
-*/
