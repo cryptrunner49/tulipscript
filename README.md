@@ -1,130 +1,165 @@
 # 🌷 TulipScript
 
-**TulipScript** is a lightweight, expressive, JavaScript-inspired scripting language designed for simplicity and flexibility. Drawing from JavaScript’s familiar syntax, it adds unique features like Unicode and emoji identifiers, native functions, and modern programming constructs. TulipScript is perfect for quick scripts or experimenting with creative coding. Whether you're shuffling arrays, writing to files, or defining structs with cat emojis (🐱), TulipScript makes programming fun and accessible.
+**TulipScript** is a lightweight, expressive scripting language inspired by JavaScript — but more fun. It supports Unicode and emoji identifiers, functional programming, file I/O, and is embeddable as a shared C library. Whether you're scripting a game or experimenting with creative code, TulipScript makes it joyful.
 
 ---
 
-## 👩‍💻 Hello World
+## 🚀 Quick Start
 
 ```tulipscript
 let hello = "Hello, World!"
-println(hello)    // Outputs: Hello, World!
+println(hello)  // Outputs: Hello, World!
 ```
 
-📖 Explore variables, structs, loops, and more in the [TulipScript Usage Guide](TULIPSCRIPT_USAGE.md).
+📖 Explore language features in the [Usage Guide →](TULIPSCRIPT_USAGE.md)
 
 ---
 
 ## ✨ Features
 
-- **🌍 Unicode & Emoji Identifiers** — Name variables like `🌸` or `π`.
-- **🧠 JavaScript-Inspired Syntax** — Use familiar constructs like `let`, `const`, `function`, `if`, and `for`.
-- **⚙️ Native Functions** — Built-ins like `clock()`, `shuffle()`, and `random_between()`.
-- **🧱 Structs & Closures** — Define custom types and use functional constructs.
-- **📁 File I/O** — Read and write files with `read_file()` and `write_file()`.
-- **🖥 Cross-Platform** — Works on Linux and macOS with standard tooling.
-
-📚 Learn more in the [TulipScript Usage Guide →](TULIPSCRIPT_USAGE.md)
+- 🌍 **Unicode & Emoji Identifiers** — Name your variables `🌸`, `π`, or anything you love.
+- 🧠 **Familiar JavaScript-like Syntax** — Use `let`, `const`, `if`, `for`, and more.
+- ⚙️ **Native Functions** — `clock()`, `shuffle()`, `random_between()` and others built-in.
+- 📁 **File I/O** — `read_file()` and `write_file()` to handle files natively.
+- 🧱 **Structs & Closures** — Define types, encapsulate behavior.
+- 🐧 **Linux-Only** — Works out of the box on most Linux distributions.
+- 🧬 **Embeddable VM** — Use it in C, Go, Rust, or C++ apps.
 
 ---
 
-## 📦 Installation
+## 🔽 Download
+
+Get the latest prebuilt binaries and development files from the [Releases Page →](https://github.com/cryptrunner49/tulipscript/releases/latest):
+
+- **🌷 VM Executable**: [Download `tulip`](https://github.com/cryptrunner49/tulipscript/releases/latest/download/tulip)
+- **🔧 Development Files**:
+  - [libtulip.h](https://github.com/cryptrunner49/tulipscript/releases/latest/download/libtulip.h)
+  - [libtulip.so](https://github.com/cryptrunner49/tulipscript/releases/latest/download/libtulip.so)
+- **📦 Full Release Bundle** (VM + Libs + Headers + Examples):  
+  [tulip-release.zip](https://github.com/cryptrunner49/tulipscript/releases/latest/download/tulip-release.zip)
+
+---
+
+## ⚙️ Installation
 
 ### ✅ Requirements
 
-- Linux (Debian, Ubuntu, Fedora, Arch, etc.) or macOS
+- OS: Linux
+- Tools: `gcc`, `make`, `pkg-config`, `libffi`, `readline`
 - [Go (Golang)](https://golang.org)
-- Dependencies: `gcc`, `pkg-config`, `make`, `libffi`, `readline`
 
-### 🧰 System Setup
+### 🧰 Install with Script
 
-#### Option 1: Install via Script
-
-**System-wide installation (requires `sudo`)**:
+**System-wide:**
 
 ```bash
 curl -sL https://github.com/cryptrunner49/tulipscript/raw/refs/heads/main/install.sh | bash -s -- install --system
 ```
 
-**User-only installation (`$HOME/.local/bin`)**:
+**User-only:**
 
 ```bash
 curl -sL https://github.com/cryptrunner49/tulipscript/raw/refs/heads/main/install.sh | bash -s -- install --user
 ```
 
-#### Option 2: Manual Download
+### 🏗 Build from Source
 
 ```bash
-curl -LO https://github.com/cryptrunner49/tulipscript/releases/latest/download/tulip
-chmod +x tulip
+git clone https://github.com/cryptrunner49/tulipscript.git
+cd tulipscript
+make vm
+./bin/tulip samples/scripts/rpg_game.tlp
 ```
 
 ---
 
-### 🛠 Build From Source
+## 🧠 Embedding TulipScript
 
-1. Clone the repository:
+TulipScript is easy to embed in other languages like **C, Go, C++**, and **Rust**.
 
-   ```bash
-   git clone https://github.com/cryptrunner49/tulipscript.git
-   cd tulipscript
-   ```
+### ✅ Example in C
 
-2. Build the interpreter:
+```c
+#include "libtulip.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-   ```bash
-   make build
-   ```
+int main(int argc, char** argv) {
+    Tulip_Init(argc, argv);
 
-3. Run a script:
+    if (argc > 1) {
+        Tulip_RunFile(argv[1]);
+    } else {
+        int exitCode;
+        char* result = Tulip_InterpretWithResult("1 + 2;", "<repl>", &exitCode);
+        if (exitCode == 0) printf("Last value: %s\n", result);
+        else printf("Execution failed with code %d\n", exitCode);
+        free(result);
+    }
 
-   ```bash
-   ./bin/tulip sample/rpg.tlp
-   ```
+    Tulip_Free();
+    return 0;
+}
+```
+
+### 🛠 Build & Run
+
+```bash
+make lib
+gcc -o run_sample samples/lib/c/sample.c -Lbin -ltulip -Ibin
+LD_LIBRARY_PATH=bin ./run_sample
+```
 
 ---
 
-## 🧪 Platform-Specific Setup
+## 🔍 More Embedding Examples
 
-### Ubuntu/Debian
+Find ready-to-run embedding samples in:
+
+- [📄 C](samples/lib/c/sample.c)
+- [📄 C++](samples/lib/c/sample.cpp)
+- [📄 Go](samples/lib/c/sample.go)
+- [📄 Rust](samples/lib/c/sample.rust)
+
+These show how to use TulipScript with FFI across different ecosystems.
+
+---
+
+## 🧪 OS Setup Instructions
+
+### Ubuntu / Debian
 
 ```bash
 sudo apt update
 sudo apt install gcc pkg-config make golang libffi-dev libreadline-dev
 ```
 
-### macOS
-
-```bash
-brew install go pkg-config gcc make libffi readline
-```
-
 ---
 
 ## 🗺 Roadmap
 
-Coming soon to TulipScript:
+What’s next for TulipScript?
 
-- [ ] **Pattern Matching** — More expressive conditionals.
-- [ ] **Switch Statement** — Cleaner multi-branch logic.
-- [ ] **Elif Support** — Less nesting, more clarity.
-- [ ] **Enums** — Organize data like a pro.
-- [ ] **Error Handling** — Try-catch or similar constructs.
-- [ ] **Standard Library** — More built-in power.
+- [x] **Elif Support**
+- [ ] **Pattern Matching**
+- [ ] **Switch Statement**
+- [ ] **Enums**
+- [ ] **Error Handling**
+- [ ] **Standard Library**
 
-🎯 Track progress or suggest features via [Issues →](https://github.com/cryptrunner49/tulipscript/issues)
+✨ Track progress or suggest features via [Issues →](https://github.com/cryptrunner49/tulipscript/issues)
 
 ---
 
 ## 🤝 Contributing
 
-We’d love your help! Whether it's fixing bugs, improving docs, or proposing features—your contributions matter.
+We’d love your help! Bug fixes, documentation, or feature proposals — it all counts.
 
-📘 See the [Contributing Guide →](CONTRIBUTING.md) to get started.
+👉 See the [Contributing Guide →](CONTRIBUTING.md)
 
 ---
 
 ## 📄 License
 
-TulipScript is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.  
-See the [LICENSE](LICENSE) file for full details.
+**TulipScript** is licensed under the **GNU GPL-3.0**.  
+See the [LICENSE](LICENSE) for details.

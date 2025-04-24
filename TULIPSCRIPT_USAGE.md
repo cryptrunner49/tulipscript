@@ -1,68 +1,148 @@
 # TulipScript Usage Guide
 
-Welcome to the TulipScript Usage Guide! TulipScript is a JavaScript-inspired scripting language with modern constructs, Unicode/emoji support, and built-in features to enhance productivity. This guide walks through language features with practical examples.
+Welcome to the TulipScript Usage Guide! TulipScript is a JavaScript-inspired scripting language with modern constructs, Unicode/emoji support, and built-in features to enhance productivity. This guide walks through language features with practical examples, themed around colors.
 
 ---
 
 ## Table of Contents
 
 1. [Variables](#1-variables)  
-2. [Closures](#2-closures)  
-3. [Fibonacci Recursive](#3-fibonacci-recursive)  
-4. [Fibonacci Iterative](#4-fibonacci-iterative)  
-5. [Structs and Control Flow](#5-structs-and-control-flow)  
-6. [Arrays](#6-arrays)  
-7. [File Operations](#7-file-operations)  
-8. [Native Functions](#8-native-functions)  
-9. [Modules](#9-modules)  
-10. [Import](#10-import)  
-11. [Additional Features](#11-additional-features)  
-12. [Unicode Support](#12-unicode-support)
+2. [Types of Variables](#2-types-of-variables)  
+3. [Constants](#3-constants)  
+4. [Control Flow](#4-control-flow)  
+5. [Loops](#5-loops)  
+6. [Blocks](#6-blocks)  
+7. [Closures](#7-closures)  
+8. [Fibonacci Recursive](#8-fibonacci-recursive)  
+9. [Fibonacci Iterative](#9-fibonacci-iterative)  
+10. [Structs](#10-structs)  
+11. [Arrays](#11-arrays)  
+12. [Maps](#12-maps)  
+13. [File Operations](#13-file-operations)  
+14. [Modules](#14-modules)  
+15. [Import](#15-import)  
+16. [Additional Features](#16-additional-features)  
+    - [16.1. Input Handling](#161-input-handling)  
+    - [16.2. String Formatting](#162-string-formatting)  
+    - [16.3. Operators](#163-operators)  
+    - [16.4. Shadowing](#164-shadowing)  
+17. [Unicode Support](#17-unicode-support)
+18. [Native Functions](#18-native-functions)  
 
 ---
 
 ## 1. Variables
 
-```tulipscript
-let num = 42
-println("Number:", num)
+```javascript
+let hue = "Red"
+println("Color:", hue)
 
-let message = "Hello, TulipScript!"
-println("Message:", message)
+let saturation = 75
+println("Saturation:", saturation)
 
-let isTrue = true
-println("Boolean:", isTrue)
+let isVivid = true
+println("Is Vivid?:", isVivid)
 
-let nothing = null
-println("Null:", nothing)
+let shade = null
+println("Shade:", shade)
 ```
 
 ---
 
-## 2. Closures
+## 2. Types of Variables
 
-```tulipscript
-function outer() {
-    let a = 1
-    let b = 2
-    function middle() {
-        let c = 3
-        let d = 4
-        function inner() {
-            println("Sum:", a + c + b + d)
-        }
-        inner()
-    }
-    middle()
+```javascript
+let colorName = "Blue"          // String
+let brightness = 100            // Number
+let isPrimary = true            // Boolean
+let noColor = null              // Null
+println("Color:", colorName, "Brightness:", brightness)
+println("Primary?:", isPrimary, "No Color:", noColor)
+```
+
+---
+
+## 3. Constants
+
+```javascript
+const PRIMARY_COLOR = "Red"
+println("Primary Color:", PRIMARY_COLOR)
+
+const MAX_BRIGHTNESS = 255
+println("Max Brightness:", MAX_BRIGHTNESS)
+
+const IS_DEFAULT = false
+println("Is Default?:", IS_DEFAULT)
+
+const EMPTY_SHADE = null
+println("Empty Shade:", EMPTY_SHADE)
+```
+
+---
+
+## 4. Control Flow
+
+```javascript
+let color = "Green"
+if (color == "Red") {
+    println("Warm color")
+} | (color == "Blue") {
+    println("Cool color")
+} else {
+    println("Other color")
 }
-outer()
 ```
 
 ---
 
-## 3. Fibonacci Recursive
+## 5. Loops
 
-```tulipscript
+```javascript
+let count = 0
+while (count < 3) {
+    println("Color shade #", to_str(count))
+    count = count + 1
+}
+
+for (let i = 0; i < 3; i++) {
+    println("Tone:", i)
+}
+```
+
+---
+
+## 6. Blocks
+
+```javascript
+let tint = "Light Blue"
+{
+    let tint = "Dark Blue"
+    println("Inner tint:", tint)
+}
+println("Outer tint:", tint)
+```
+
+---
+
+## 7. Closures
+
+```javascript
+function createColorMixer() {
+    let baseColor = "White"
+    function mix(color) {
+        println("Mixing", color, "with", baseColor)
+    }
+    return mix
+}
+let mixer = createColorMixer()
+mixer("Red")
+```
+
+---
+
+## 8. Fibonacci Recursive
+
+```javascript
 function fib(n) {
     if (n < 2) return n
     return fib(n - 2) + fib(n - 1)
@@ -75,9 +155,9 @@ printf("Time taken: %v seconds\n", clock() - start)
 
 ---
 
-## 4. Fibonacci Iterative
+## 9. Fibonacci Iterative
 
-```tulipscript
+```javascript
 function fib(n) {
     if (n < 2) return n
     let a = 0
@@ -97,98 +177,61 @@ printf("Time taken: %v seconds\n", clock() - start)
 
 ---
 
-## 5. Structs and Control Flow
+## 10. Structs
 
-```tulipscript
-struct Animal {
-    species = "Unknown",
-    length = 50,
-    height = 25
+```javascript
+struct Color {
+    name = "Unknown",
+    rgb = [255, 255, 255]
 }
 
-function describeAnimal(animal) {
-    return animal.species + ": " + to_str(animal.length) + "x" + to_str(animal.height) + " cm"
+function describeColor(color) {
+    return color.name + ": RGB(" + array_to_string(color.rgb) + ")"
 }
 
-let favorite = Animal()
-favorite.species = "Cat"
-if (favorite.length <= 50) {
-    println("Animal is average or shorter")
-} else {
-    println("Animal is longer than average")
-}
-println("Description:", describeAnimal(favorite))
+let favorite = Color()
+favorite.name = "Teal"
+favorite.rgb = [0, 128, 128]
+println("Description:", describeColor(favorite))
+```
 
-let count = 0
-while (count < 2) {
-    println("Meow #", to_str(count))
-    count = count + 1
+---
+
+## 11. Arrays
+
+```javascript
+let colors = ["Red", "Blue", "Green"]
+println("Colors:", array_to_string(colors))
+push(colors, "Yellow")
+println("After push:", array_to_string(colors))
+println("Popped:", pop(colors))
+
+for (let i = 0; i < len(colors); i++) {
+    println("Color", i, ":", colors[i])
 }
 ```
 
 ---
 
-## 6. Arrays
+## 12. Maps
 
-```tulipscript
-let arr = [1, 2, 3, 4, 5]
-println("Original array:", array_to_string(arr))
-push(arr, 6)
-println("After push(6):", array_to_string(arr))
-println("Popped:", pop(arr))
+```javascript
+let colorMap = { "Red": "#FF0000", "Blue": "#0000FF" }
+println("Red Hex:", colorMap["Red"])
+colorMap["Green"] = "#00FF00"
+println("Updated map:", colorMap)
 
-for (let i = 0; i < len(arr); i++) {
-    println("Element", i, ":", arr[i])
-}
+println("Contains Blue:", map_contains_key(colorMap, "Blue"))
+println("Keys:", map_keys(colorMap))
 ```
 
 ---
 
-## 7. Maps
+## 13. File Operations
 
-```tulipscript
-// Basic Map Operations
-println("--- Map Demo ---")
-let map = { "name": "Alice", "age": 30 }
-println("Name:", map["name"])  // Outputs: Alice
-println("Age:", map["age"])    // Outputs: 30
-map["age"] = 31
-println("Updated age:", map["age"])  // Outputs: 31
-
-// Map Functions
-println("--- Map Functions ---")
-let m = {"a": 1, "b": 2}
-println("Initial map:", m)
-map_remove(m, "a")
-println("After removing 'a':", m)
-println("Contains key 'b':", map_contains_key(m, "b"))
-println("Contains value 2:", map_contains_value(m, 2))
-println("Map size:", map_size(m))
-println("Keys:", map_keys(m))
-println("Values:", map_values(m))
-map_clear(m)
-println("After clear:", m)
-
-// Map Addition
-println("--- Map Addition ---")
-let a = {"x": 1, "y": 2}
-let b = {"y": 3, "z": 4}
-println("a + b:", a + b)
-
-// Map Subtraction
-println("--- Map Subtraction ---")
-let a = {"x": 1, "y": 2, "z": 3}
-let b = {"y": null, "w": null}
-println("a - b:", a - b)
-```
-
----
-
-## 8. File Operations
-
-```tulipscript
-let filename = "test.txt"
-let content = "This is a file handling example.\nDemonstrating how to read and write files."
+```javascript
+let filename = "colors.txt"
+let content = "Primary Colors:\nRed\nBlue\nYellow"
 write_file(filename, content)
 println("Wrote to file:", filename)
 
@@ -198,122 +241,262 @@ println("Read from file:", readContent)
 
 ---
 
-## 9. Native Functions
+## 14. Modules
 
-```tulipscript
-let time = clock()
-println("Current time:", time)
-
-let numbers = [1, 2, 3, 4, 5]
-shuffle(numbers)
-println("Shuffled array:", array_to_string(numbers))
-
-let randNum = random_between(1, 10)
-println("Random number (1-10):", randNum)
-```
-
----
-
-## 10. Modules
-
-```tulipscript
-// geometry.tlp
-
-mod Geometry {
-    mod Shapes {
-        function area_circle(radius) {
-            return Geometry.PI * radius * radius
-        }
-
-        function perimeter_circle(radius) {
-            return 2 * Geometry.PI * radius
+```javascript
+// color_utils.tlp
+mod ColorUtils {
+    mod Tones {
+        function getShade(color) {
+            return color + " Shade"
         }
     }
-
-    const PI = 3.14159
+    const DEFAULT_HUE = "Gray"
 }
 ```
 
 ---
 
-## 11. Import
+## 15. Import
 
-```tulipscript
+```javascript
 // main.tlp
-import "geometry.tlp"
+import "color_utils.tlp"
 
-println("Circle Area:", Geometry.Shapes.area_circle(5))
-println("Circle Perimeter:", Geometry.Shapes.perimeter_circle(5))
+println("Shade:", ColorUtils.Tones.getShade("Blue"))
+println("Default Hue:", ColorUtils.DEFAULT_HUE)
 ```
 
 ---
 
-## 12. Additional Features
+## 16. Additional Features
 
-### 12.1. Input Handling
+### 16.1. Input Handling
 
-```tulipscript
-println("Enter a sentence:")
+```javascript
+println("Enter a color:")
 let input = scanln()
-println("You entered:", input)
+println("You chose:", input)
 ```
 
-### 12.2. String Formatting
+### 16.2. String Formatting
 
-```tulipscript
-let name = "Alice"
-let age = 25
-let formatted = sprintf("Name: %v, Age: %v", name, age)
+```javascript
+let color = "Purple"
+let intensity = 80
+let formatted = sprintf("Color: %v, Intensity: %v", color, intensity)
 println("Formatted:", formatted)
 ```
 
-### 12.3. Advanced Control Flow
+### 16.3. Operators
 
-```tulipscript
-let x = 5
-if (x > 0) {
-    println("Positive")
-} else if (x < 0) {
-    println("Negative")
-} else {
-    println("Zero")
-}
-
-for (let i = 0; i < 3; i++) {
-    if (i == 1) continue // Skip the iteration when i is 1
-    if (i == 2) break    // Exit the loop when i is 2
-    println("i:", i)
-}
+```javascript
+let r = 255
+let g = 128
+println("Add:", r + g)
+println("Exponent:", r ** 2)
+println("Integer Div:", r /_ g)
+println("50 percent of 1000:", 50 %% 1000)
 ```
 
-### 12.4. Operators
+### 16.4. Shadowing
 
-```tulipscript
-let a = 10
-let b = 3
-println("Add:", a + b)
-println("Exponent:", a ** 2)
-println("Integer Div:", a /_ b)
-println("25 percent of 1000:", 25 %% 1000)
+```javascript
+let hue = "Orange"
+{
+    let hue = "Cyan"
+    println("Inner hue:", hue)
+}
+println("Outer hue:", hue)
 ```
 
 ---
 
-## 13. Unicode Support
+## 17. Unicode Support
 
-```tulipscript
-let π = 3.14159
-println("Value of π:", π)
+```javascript
+let 🎨 = "Rainbow"
+println("Palette 🎨:", 🎨)
 
-let 🌷 = "Tulip emoji"
-println("Emoji variable 🌷:", 🌷)
+let 色 = "青"
+println("Color 色:", 色)
 
-let greeting = "こんにちは世界"
-println("Greeting in Japanese:", greeting)
-
-struct 数学 {
-    半径 = 5
+struct 色彩 {
+    名前 = "不明"
 }
-let 円 = 数学()
-println("半径 (radius):", 円.半径)
+let 好きな色 = 色彩()
+好きな色.名前 = "緑"
+println("Favorite color name:", 好きな色.名前)
+```
+
+---
+
+## 18. Native Functions
+
+```javascript
+// === String Functions ===
+let str = "  Hello, Tulip!  "
+println("Original string:", str)
+println("To string:", to_str(42))                    // Convert number to string
+let chars = to_chars(str)                           // Convert string to array of characters
+println("Characters:", array_to_string(chars))
+println("Char at 2:", char_at(str, 2))              // Get character at index
+println("Substring:", substring(str, 2, 7))         // Get substring
+println("Index of 'Tulip':", str_index_of(str, "Tulip")) // First occurrence
+println("Last index of 'l':", str_last_index_of(str, "l")) // Last occurrence
+println("Contains 'Tulip':", str_contains(str, "Tulip")) // Check if substring exists
+println("Starts with 'Hello':", starts_with(str, "Hello")) // Check prefix
+println("Ends with '!':", ends_with(str, "!"))       // Check suffix
+println("Uppercase:", to_upper(str))                 // Convert to uppercase
+println("Lowercase:", to_lower(str))                 // Convert to lowercase
+println("Trimmed:", trim(str))                      // Remove whitespace
+let split = split(str, ",")                         // Split by delimiter
+println("Split by ',':", array_to_string(split))
+println("Replace 'Tulip' with 'World':", replace(str, "Tulip", "World")) // Replace substring
+println("String length:", str_length(str))           // Get string length
+
+// === Array Functions ===
+let arr = [1, 2, 2, 3]
+println("Original array:", array_to_string(arr))
+println("Array length:", len(arr))                   // Get array length
+push(arr, 4)                                        // Push element
+println("After push(4):", array_to_string(arr))
+let popped = pop(arr)                               // Pop element
+println("Popped:", popped, "Array:", array_to_string(arr))
+array_sort(arr)                                     // Sort array
+println("Sorted:", array_to_string(arr))
+let split_arr = array_split(arr, 2)                  // Split by separator
+println("Split by 2:", array_to_string(split_arr))
+let arr2 = [5, 6]
+let joined = array_join(arr, arr2)                   // Join arrays
+println("Joined:", array_to_string(joined))
+array_sorted_push(arr, 3)                           // Insert into sorted array
+println("Sorted push(3):", array_to_string(arr))
+println("Linear search 2:", array_linear_search(arr, 2)) // Linear search
+println("Binary search 3:", array_binary_search(arr, 3)) // Binary search
+println("Index of 2:", index_of(arr, 2))            // First occurrence
+println("Last index of 2:", last_index_of(arr, 2))  // Last occurrence
+println("Contains 3:", array_contains(arr, 3))      // Check if element exists
+array_reverse(arr)                                  // Reverse array
+println("Reversed:", array_to_string(arr))
+array_remove(arr, 2)                                // Remove first occurrence
+println("After remove(2):", array_to_string(arr))
+array_clear(arr)                                    // Clear array
+println("Cleared:", array_to_string(arr))
+
+// === Iterator Functions ===
+let iter_arr = [10, 20, 30]
+let iter = array_iter(iter_arr)                     // Create iterator
+while !iter_done(iter)
+    println("Iterator value:", iter_value(iter))     // Get current value
+    iter_next(iter)                                 // Move to next
+end
+
+// === Map Functions ===
+let map = {"a": 1, "b": 2}
+println("Map:", to_str(map))
+map_remove(map, "a")                                // Remove key
+println("After remove 'a':", to_str(map))
+println("Contains key 'b':", map_contains_key(map, "b")) // Check key
+println("Contains value 2:", map_contains_value(map, 2)) // Check value
+println("Map size:", map_size(map))                 // Get map size
+let keys = map_keys(map)                            // Get all keys
+println("Keys:", array_to_string(keys))
+let values = map_values(map)                        // Get all values
+println("Values:", array_to_string(values))
+map_clear(map)                                      // Clear map
+println("Cleared map:", to_str(map))
+
+// === Date Functions ===
+let date = Date(2023, 10, 15)                       // Create date
+println("Date:", to_str(date))
+println("Current date:", to_str(date_now()))        // Current date
+let parsed_date = date_parse_datetime("2024-01-01") // Parse date
+println("Parsed date:", to_str(parsed_date))
+println("Formatted date:", date_format_datetime(date, "2006-Jan-02")) // Format
+let added_date = date_add_datetime(date, 1, 2, 3)   // Add time
+println("Added date:", to_str(added_date))
+let sub_date = date_subtract_datetime(date, 1, 2, 3) // Subtract time
+println("Subtracted date:", to_str(sub_date))
+println("Year:", date_get_component(date, "year"))  // Get component
+let set_date = date_set_component(date, "year", 2025) // Set component
+println("Set year:", to_str(set_date))
+println("Add 5 days:", to_str(date_add_days(date, 5))) // Add days
+println("Subtract 5 days:", to_str(date_subtract_days(date, 5))) // Subtract days
+
+// === Time Functions ===
+let time = Time(14, 30, 0)                          // Create time
+println("Time:", to_str(time))
+println("Current time:", to_str(time_now()))        // Current time
+let parsed_time = time_parse("15:04:05")            // Parse time
+println("Parsed time:", to_str(parsed_time))
+println("Formatted time:", time_format(time, "15:04")) // Format
+let added_time = time_add(time, 1, 30, 0)           // Add time
+println("Added time:", to_str(added_time))
+let sub_time = time_subtract(time, 1, 30, 0)        // Subtract time
+println("Subtracted time:", to_str(sub_time))
+println("Timezone:", time_get_timezone(time))       // Get timezone
+let converted = time_convert_timezone(time, "America/New_York") // Convert timezone
+println("Converted timezone:", to_str(converted))
+
+// === DateTime Functions ===
+let dt = DateTime(2023, 10, 15, 14, 30, 0)          // Create datetime
+println("DateTime:", to_str(dt))
+println("Current datetime:", to_str(datetime_now())) // Current datetime
+let parsed_dt = datetime_parse("2023-10-15 14:30:00") // Parse datetime
+println("Parsed datetime:", to_str(parsed_dt))
+println("Formatted datetime:", datetime_format(dt, "2006-Jan-02 15:04")) // Format
+let added_dt = datetime_add(dt, 1, 2, 3, 4, 5, 6)   // Add datetime
+println("Added datetime:", to_str(added_dt))
+let sub_dt = datetime_subtract(dt, 1, 2, 3, 4, 5, 6) // Subtract datetime
+println("Subtracted datetime:", to_str(sub_dt))
+println("Hour:", datetime_get_component(dt, "hour")) // Get component
+let set_dt = datetime_set_component(dt, "hour", 16) // Set component
+println("Set hour:", to_str(set_dt))
+println("Add 5 days:", to_str(datetime_add_days(dt, 5))) // Add days
+println("Subtract 5 days:", to_str(datetime_subtract_days(dt, 5))) // Subtract days
+
+// === Random Functions ===
+let colors = ["Red", "Blue", "Green"]
+shuffle(colors)                                     // Shuffle array
+println("Shuffled colors:", array_to_string(colors))
+let rand_num = random_between(1, 10)                // Random number
+println("Random number:", rand_num)
+let rand_str = random_string(8)                     // Random string
+println("Random string:", rand_str)
+
+// === Output Functions ===
+print("Hello, ")                                    // Print without newline
+println("Tulip!")                                   // Print with newline
+printf("Number: %d, String: %s\n", 42, "Tulip")     // Formatted print
+
+// === Input Functions ===
+let scanned = scan()                             // Read input as array
+println("Scanned:", array_to_string(scanned))
+let line = scanln()                             // Read line
+println("Line:", line)
+let formatted = scanf("%s")                     // Read formatted input
+println("Formatted input:", formatted)
+
+// === Formatting Functions ===
+let formatted = sprintf("Value: %d", 42)            // Format string
+println("Formatted:", formatted)
+let err_msg = errorf("Error: %s", "Invalid")        // Format error
+println("Error message:", err_msg)
+
+// === File Operations ===
+write_file("test.txt", "Hello, Tulip!")             // Write to file
+let content = read_file("test.txt")                 // Read from file
+println("File content:", content)
+
+// === Utility Functions ===
+let num = parse_int("123")                          // Parse string to int
+println("Parsed int:", num)
+
+// === Type Functions ===
+println("Type of 42:", get_runtype(42))             // Get runtime type
+
+// === Other Functions ===
+let time = clock()                                  // Get current time in seconds
+println("Current time (seconds):", time)
 ```
