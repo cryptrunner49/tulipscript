@@ -459,7 +459,7 @@ func unary(canAssign bool) {
 
 		name := parser.previous
 		if localArg := resolveLocal(current, name); localArg != -1 && current.locals[localArg].isConst {
-			reportError(fmt.Sprintf("Cannot increment constant variable '%s'.", name.Start))
+			reportError(fmt.Sprintf("Cannot increment constant '%s'.", name.Start))
 			return
 		}
 		var getOp, setOp uint8
@@ -493,7 +493,7 @@ func unary(canAssign bool) {
 
 		name := parser.previous
 		if localArg := resolveLocal(current, name); localArg != -1 && current.locals[localArg].isConst {
-			reportError(fmt.Sprintf("Cannot decrement constant variable '%s'.", name.Start))
+			reportError(fmt.Sprintf("Cannot decrement constant '%s'.", name.Start))
 			return
 		}
 		var getOp, setOp uint8
@@ -648,14 +648,14 @@ func namedVariable(name token.Token, canAssign bool) {
 
 	if canAssign && match(token.TOKEN_EQUAL) {
 		if isConst {
-			reportError(fmt.Sprintf("Cannot assign to constant variable '%s'.", name.Start))
+			reportError(fmt.Sprintf("Cannot assign to constant '%s'.", name.Start))
 			return
 		}
 		expression()
 		emitBytes(setOp, uint8(arg))
 	} else if match(token.TOKEN_PLUS_PLUS) {
 		if isConst {
-			reportError(fmt.Sprintf("Cannot increment constant variable '%s'.", name.Start))
+			reportError(fmt.Sprintf("Cannot increment constant '%s'.", name.Start))
 			return
 		}
 		// Existing postfix ++ logic...
@@ -667,7 +667,7 @@ func namedVariable(name token.Token, canAssign bool) {
 		emitByte(byte(runtime.OP_POP))
 	} else if match(token.TOKEN_MINUS_MINUS) {
 		if isConst {
-			reportError(fmt.Sprintf("Cannot decrement constant variable '%s'.", name.Start))
+			reportError(fmt.Sprintf("Cannot decrement constant '%s'.", name.Start))
 			return
 		}
 		// Existing postfix -- logic...

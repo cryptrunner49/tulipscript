@@ -651,10 +651,10 @@ func useDeclaration() {
 }
 
 func constDeclaration() {
-	global := parseVariable("Expected a variable name after 'const' (e.g., 'const x = 5;').")
+	global := parseVariable("Expected a constant name after 'const' (e.g., 'const x = 5;').")
 	// Require an initializer
 	if !match(token.TOKEN_EQUAL) {
-		reportError("Constant variable declaration must include an initializer (e.g., 'const x = 5;').")
+		reportError("Constants declaration must include an initializer (e.g., 'const x = 5;').")
 		return
 	}
 	expression() // Compile the initializer expression

@@ -315,7 +315,7 @@ func run() InterpretResult {
 			if global, exists := vm.globals[name]; !exists {
 				return runtimeError("Cannot assign to undefined global variable '%s'.", name.Chars)
 			} else if global.IsConst {
-				return runtimeError("Cannot assign to constant global variable '%s'.", name.Chars)
+				return runtimeError("Cannot assign to global constant '%s'.", name.Chars)
 			}
 			vm.globals[name] = GlobalVar{Value: peek(0), IsConst: false}
 		case uint8(runtime.OP_GET_GLOBAL):
