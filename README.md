@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
         Tulip_RunFile(argv[1]);
     } else {
         int exitCode;
-        char* result = Tulip_InterpretWithResult("1 + 2;", "<repl>", &exitCode);
+        char* result = Tulip_InterpretWithResult("1 + 2;", "<script>", &exitCode);
         if (exitCode == 0) printf("Last value: %s\n", result);
         else printf("Execution failed with code %d\n", exitCode);
         free(result);
