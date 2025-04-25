@@ -22,3 +22,9 @@ checkColor("green");    // Should print: This is green!
 checkColor("yellow");   // Should print: This is yellow!
 checkColor("purple");   // Should print: This is purple!
 checkColor("orange");   // Should print: Unknown color.
+
+if (true)
+    println("true");
+
+if (false)
+    println("false");

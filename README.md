@@ -6,7 +6,7 @@
 
 ## 🚀 Quick Start
 
-```tulipscript
+```tlp
 let hello = "Hello, World!"
 println(hello)  // Outputs: Hello, World!
 ```
@@ -19,11 +19,11 @@ println(hello)  // Outputs: Hello, World!
 
 - 🌍 **Unicode & Emoji Identifiers** — Name your variables `🌸`, `π`, or anything you love.
 - 🧠 **Familiar JavaScript-like Syntax** — Use `let`, `const`, `if`, `for`, and more.
-- ⚙️ **Native Functions** — `clock()`, `shuffle()`, `random_between()` and others built-in.
+- ⚙️ **Built‑in Functions** — `clock()`, `shuffle()`, `random_between()` and others built-in.
 - 📁 **File I/O** — `read_file()` and `write_file()` to handle files natively.
-- 🧱 **Structs & Closures** — Define types, encapsulate behavior.
+- 🧱 **Structs & Closures** — Define custom types and encapsulate behavior.
 - 🐧 **Linux-Only** — Works out of the box on most Linux distributions.
-- 🧬 **Embeddable VM** — Use it in C, Go, Rust, or C++ apps.
+- 🧬 **Embeddable VM** — Integrate TulipScript with C, Go, Rust, or C++ applications.
 
 ---
 
@@ -35,7 +35,7 @@ Get the latest prebuilt binaries and development files from the [Releases →](h
 - **🔧 Development Files**:
   - [libtulip.h](https://github.com/cryptrunner49/tulipscript/releases/latest/download/libtulip.h)
   - [libtulip.so](https://github.com/cryptrunner49/tulipscript/releases/latest/download/libtulip.so)
-- **📦 Full Release Bundle** (VM + Libs + Headers + Examples):  
+- **📦 Full Release Bundle** (VM + Libs + Headers):  
   [tulip-release.zip](https://github.com/cryptrunner49/tulipscript/releases/latest/download/tulip-release.zip)
 
 ---
@@ -125,7 +125,7 @@ These show how to use TulipScript with FFI across different ecosystems.
 
 ---
 
-## 🧪 OS Setup Instructions
+## 🧪 Platform‑Specific Setup
 
 ### Ubuntu / Debian
 
@@ -140,7 +140,7 @@ sudo apt install gcc pkg-config make golang libffi-dev libreadline-dev
 
 What’s next for TulipScript?
 
-- [x] **Elif Support**
+- [x] **Elif**
 - [ ] **Pattern Matching**
 - [ ] **Switch Statement**
 - [ ] **Enums**
@@ -153,9 +153,9 @@ What’s next for TulipScript?
 
 ## 🤝 Contributing
 
-We’d love your help! Bug fixes, documentation, or feature proposals — it all counts.
+We’d love your help! Whether it's fixing bugs, improving docs, or proposing features—your contributions matter.
 
-👉 See the [Contributing Guide →](CONTRIBUTING.md)
+👉 See the [Contributing Guide →](CONTRIBUTING.md) to get started.
 
 ---
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to install or uninstall the SeedVM.
+# Script to install or uninstall the Tulip.
 # It downloads the latest release binary from GitHub using curl and installs it either:
 #   - System-wide in /usr/local/bin (with sudo), or
 #   - In $HOME/.local/bin (without sudo) and ensures $HOME/.local/bin is in PATH.
@@ -18,8 +18,8 @@ NC='\033[0m' # No Color
 # Usage message
 usage() {
     echo "Usage: $0 {install|uninstall} [--system|--user]"
-    echo "  install   - Install SeedVM"
-    echo "  uninstall - Uninstall SeedVM"
+    echo "  install   - Install Tulip"
+    echo "  uninstall - Uninstall Tulip"
     echo "  --system  - Install system-wide (uses sudo, installs to /usr/local/bin)"
     echo "  --user    - Install for the current user (default; installs to \$HOME/.local/bin)"
     exit 1
@@ -77,8 +77,8 @@ add_local_bin_to_path() {
 }
 
 # Install function
-install_seedvm() {
-    echo "Starting SeedVM installation..."
+install_tulip() {
+    echo "Starting Tulip installation..."
 
     # Create installation directory if it doesn't exist
     if [ "$USE_SUDO" -eq 1 ]; then
@@ -88,42 +88,42 @@ install_seedvm() {
     fi
 
     # Download the latest release binary
-    echo "Downloading SeedVM from: $DOWNLOAD_URL"
-    curl -sL -o "$FILE" "$DOWNLOAD_URL" || check_status "Downloading SeedVM"
+    echo "Downloading Tulip from: $DOWNLOAD_URL"
+    curl -sL -o "$FILE" "$DOWNLOAD_URL" || check_status "Downloading Tulip"
 
     # Make the binary executable
     chmod +x "$FILE" || check_status "Setting executable permission on $FILE"
 
     # Move the binary to the installation directory
     if [ "$USE_SUDO" -eq 1 ]; then
-        sudo mv "$FILE" "$INSTALL_DIR/seedvm" || check_status "Moving binary to $INSTALL_DIR"
+        sudo mv "$FILE" "$INSTALL_DIR/tulip" || check_status "Moving binary to $INSTALL_DIR"
     else
-        mv "$FILE" "$INSTALL_DIR/seedvm" || check_status "Moving binary to $INSTALL_DIR"
+        mv "$FILE" "$INSTALL_DIR/tulip" || check_status "Moving binary to $INSTALL_DIR"
         add_local_bin_to_path
     fi
 
-    echo -e "${GREEN}SeedVM installed successfully in $INSTALL_DIR!${NC}"
-    echo "Run 'seedvm --help' for usage instructions."
+    echo -e "${GREEN}Tulip installed successfully in $INSTALL_DIR!${NC}"
+    echo "Run 'tulip --help' for usage instructions."
 }
 
 # Uninstall function
-uninstall_seedvm() {
-    echo "Starting SeedVM uninstallation..."
+uninstall_tulip() {
+    echo "Starting Tulip uninstallation..."
     if [ "$USE_SUDO" -eq 1 ]; then
-        sudo rm -f "$INSTALL_DIR/seedvm" || check_status "Removing binary from $INSTALL_DIR"
+        sudo rm -f "$INSTALL_DIR/tulip" || check_status "Removing binary from $INSTALL_DIR"
     else
-        rm -f "$INSTALL_DIR/seedvm" || check_status "Removing binary from $INSTALL_DIR"
+        rm -f "$INSTALL_DIR/tulip" || check_status "Removing binary from $INSTALL_DIR"
     fi
-    echo -e "${GREEN}SeedVM uninstalled successfully from $INSTALL_DIR!${NC}"
+    echo -e "${GREEN}Tulip uninstalled successfully from $INSTALL_DIR!${NC}"
 }
 
 # Main script logic
 case "$ACTION" in
     install)
-        install_seedvm
+        install_tulip
         ;;
     uninstall)
-        uninstall_seedvm
+        uninstall_tulip
         ;;
     *)
         usage

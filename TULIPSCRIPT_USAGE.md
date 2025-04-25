@@ -6,65 +6,66 @@ Welcome to the TulipScript Usage Guide! TulipScript is a JavaScript-inspired scr
 
 ## Table of Contents
 
-1. [Variables](#1-variables)  
-2. [Types of Variables](#2-types-of-variables)  
-3. [Constants](#3-constants)  
-4. [Control Flow](#4-control-flow)  
-5. [Loops](#5-loops)  
-6. [Blocks](#6-blocks)  
-7. [Closures](#7-closures)  
-8. [Fibonacci Recursive](#8-fibonacci-recursive)  
-9. [Fibonacci Iterative](#9-fibonacci-iterative)  
-10. [Structs](#10-structs)  
-11. [Arrays](#11-arrays)  
-12. [Maps](#12-maps)  
-13. [File Operations](#13-file-operations)  
-14. [Modules](#14-modules)  
-15. [Import](#15-import)  
-16. [Additional Features](#16-additional-features)  
-    - [16.1. Input Handling](#161-input-handling)  
-    - [16.2. String Formatting](#162-string-formatting)  
-    - [16.3. Operators](#163-operators)  
-    - [16.4. Shadowing](#164-shadowing)  
+1. [Variables](#1-variables)
+2. [Constants](#2-constants)  
+3. [Control Flow](#3-control-flow)
+4. [Loops](#4-loops)
+5. [Blocks](#5-blocks)
+6. [Closures](#6-closures)
+7. [Fibonacci Recursive](#7-fibonacci-recursive)
+8. [Fibonacci Iterative](#8-fibonacci-iterative)
+9. [Structs](#9-structs)
+10. [Arrays](#10-arrays)
+11. [Maps](#11-maps)
+12. [File Operations](#12-file-operations)
+13. [Modules](#13-modules)
+14. [Import](#14-import)
+15. [Additional Features](#15-additional-features)
+    - [15.1. Input Handling](#151-input-handling)
+    - [15.2. String Formatting](#152-string-formatting)
+    - [15.3. Shadowing](#153-shadowing)
+16. [Operators](#16-operators)
+    - [16.1. Arithmetic Operators](#161-arithmetic-operators)
+    - [16.2. Assignment Operators](#162-assignment-operators)
+    - [16.3. Comparison Operators](#163-comparison-operators)
+    - [16.4. Logical Operators](#164-logical-operators)
+    - [16.5. Unary Operators](#165-unary-operators)
+    - [16.6. Force Operator](#166-force-operator)
+    - [16.7. Operator Precedence](#167-operator-precedence)
 17. [Unicode Support](#17-unicode-support)
-18. [Native Functions](#18-native-functions)  
+18. [Native Functions](#18-native-functions)
 
 ---
 
 ## 1. Variables
 
-```javascript
-let hue = "Red"
-println("Color:", hue)
+The `let` keyword is used to declare variables. A variable can store values like numbers, strings, booleans, or null. Variables are mutable, which means their values can be changed later. They are scoped to the block where they are declared and are also available in inner blocks, unless a variable with the same name is declared there. TulipScript figures out the variable type automatically based on the value you assign.
 
-let saturation = 75
-println("Saturation:", saturation)
+```tlp
+// Number
+let num = 42
+println("Number:", num)
 
-let isVivid = true
-println("Is Vivid?:", isVivid)
+// String
+let message = "Hello, Tulip!"
+println("Message:", message)
 
-let shade = null
-println("Shade:", shade)
+// Boolean
+let isTrue = true
+println("Boolean:", isTrue)
+
+// Null
+let nothing = null
+println("Nothing:", nothing)
 ```
 
 ---
 
-## 2. Types of Variables
+## 2. Constants
 
-```javascript
-let colorName = "Blue"          // String
-let brightness = 100            // Number
-let isPrimary = true            // Boolean
-let noColor = null              // Null
-println("Color:", colorName, "Brightness:", brightness)
-println("Primary?:", isPrimary, "No Color:", noColor)
-```
+The `const` keyword is used to declare constants. Constants are immutable, so their values cannot be changed once they are set. Like variables, constants can store values such as numbers, strings, booleans, or null and must be assigned a value when declared. Constants are block-scoped and are also accessible in inner blocks unless redefined there.
 
----
-
-## 3. Constants
-
-```javascript
+```tlp
 const PRIMARY_COLOR = "Red"
 println("Primary Color:", PRIMARY_COLOR)
 
@@ -80,10 +81,16 @@ println("Empty Shade:", EMPTY_SHADE)
 
 ---
 
-## 4. Control Flow
+## 3. Control Flow
 
-```javascript
+The `if`, `else`, and `else if` (written as `|`) keywords allow for conditional logic. Conditions must be inside parentheses. You can write single-statement blocks directly after the condition without curly braces. For multiple statements, curly braces `{}` are required to group the block.
+
+```tlp
 let color = "Green"
+
+if (color == "Green")
+    println("Green")
+
 if (color == "Red") {
     println("Warm color")
 } | (color == "Blue") {
@@ -95,25 +102,40 @@ if (color == "Red") {
 
 ---
 
-## 5. Loops
+## 4. Loops
 
-```javascript
-let count = 0
-while (count < 3) {
-    println("Color shade #", to_str(count))
-    count = count + 1
+The `while` keyword creates loops that run while a condition is true, using parentheses and curly braces. The `for` keyword iterates with an initializer, condition, and increment expression in parentheses, followed by a block. The `iter` keyword provides a concise way to iterate over arrays, using `let` to declare the loop variable and `in` to specify the array.
+
+```tlp
+// While Loop Iteration
+println("--- While Loop ---")
+let index = 0
+while (index < len(arr)) {
+    println("Element at index", index, ":", arr[index])
+    index = index + 1
 }
 
-for (let i = 0; i < 3; i++) {
-    println("Tone:", i)
+// For Loop Iteration
+println("--- For Loop ---")
+let arr = [10, 20, 30]
+for (let i = 0; i < len(arr); i++) {
+    println("Element at index", i, ":", arr[i])
+}
+
+// Iterator Loop
+println("--- Iterator Loop ---")
+iter (let item in [10, 20, 30]) {
+    println("Item:", item)
 }
 ```
 
 ---
 
-## 6. Blocks
+## 5. Blocks
 
-```javascript
+Curly braces `{}` define blocks, creating local scopes for variables declared with `let` or constants with `const`. Variables and Constants in inner blocks do not affect outer scopes, supporting isolated execution.
+
+```tlp
 let tint = "Light Blue"
 {
     let tint = "Dark Blue"
@@ -124,9 +146,11 @@ println("Outer tint:", tint)
 
 ---
 
-## 7. Closures
+## 6. Closures
 
-```javascript
+The `function` keyword defines functions, which can capture outer variables, forming closures. Closures retain access to their lexical scope, enabling stateful behavior across calls.
+
+```tlp
 function createColorMixer() {
     let baseColor = "White"
     function mix(color) {
@@ -140,9 +164,11 @@ mixer("Red")
 
 ---
 
-## 8. Fibonacci Recursive
+## 7. Fibonacci Recursive
 
-```javascript
+The `function` keyword, combined with `if` and `return`, supports recursive function definitions. Recursion involves a function calling itself with modified arguments until a base case is reached.
+
+```tlp
 function fib(n) {
     if (n < 2) return n
     return fib(n - 2) + fib(n - 1)
@@ -155,9 +181,11 @@ printf("Time taken: %v seconds\n", clock() - start)
 
 ---
 
-## 9. Fibonacci Iterative
+## 8. Fibonacci Iterative
 
-```javascript
+The `for` loop, `let` declarations, and assignment (`=`) enable iterative algorithms. Variables are updated within the loop, avoiding recursive overhead for efficiency.
+
+```tlp
 function fib(n) {
     if (n < 2) return n
     let a = 0
@@ -177,29 +205,34 @@ printf("Time taken: %v seconds\n", clock() - start)
 
 ---
 
-## 10. Structs
+## 9. Structs
 
-```javascript
-struct Color {
-    name = "Unknown",
-    rgb = [255, 255, 255]
+The `struct` keyword defines custom data types with fields initialized using `=`. Fields are accessed with dot notation (`.`), and instances are created with the struct name and `{}`. The force operator `!{}` allows initializing structs with fields not defined in the struct, overriding defaults.
+
+```tlp
+struct Point {
+    x = 10,
+    y = 22
 }
 
-function describeColor(color) {
-    return color.name + ": RGB(" + array_to_string(color.rgb) + ")"
-}
+let p = Point{}  // Creates a Point instance with defaults x=10, y=22
+println(p)
 
-let favorite = Color()
-favorite.name = "Teal"
-favorite.rgb = [0, 128, 128]
-println("Description:", describeColor(favorite))
+let p2 = Point{x = 1, y = 2}  // Creates a Point instance with x=1, y=2
+println(p2)
+
+struct Vec3
+let v3 = Vec3!{x = 1, y = 2, z = 3}  // Forces creation with fields x, y, z
+println(v3)
 ```
 
 ---
 
-## 11. Arrays
+## 10. Arrays
 
-```javascript
+Arrays are defined with square brackets `[]`, and elements are accessed via indices (e.g., `arr[i]`). Built-in functions like `push` and `pop` manipulate arrays dynamically.
+
+```tlp
 let colors = ["Red", "Blue", "Green"]
 println("Colors:", array_to_string(colors))
 push(colors, "Yellow")
@@ -213,9 +246,11 @@ for (let i = 0; i < len(colors); i++) {
 
 ---
 
-## 12. Maps
+## 11. Maps
 
-```javascript
+Maps are defined with curly braces `{}`, using key-value pairs (e.g., `"key": value`). Keys are accessed with square brackets `[]`, and built-in functions manage entries.
+
+```tlp
 let colorMap = { "Red": "#FF0000", "Blue": "#0000FF" }
 println("Red Hex:", colorMap["Red"])
 colorMap["Green"] = "#00FF00"
@@ -227,9 +262,11 @@ println("Keys:", map_keys(colorMap))
 
 ---
 
-## 13. File Operations
+## 12. File Operations
 
-```javascript
+Built-in functions `write_file` and `read_file` handle file operations, taking filename and content as arguments. They enable persistent storage and retrieval of data.
+
+```tlp
 let filename = "colors.txt"
 let content = "Primary Colors:\nRed\nBlue\nYellow"
 write_file(filename, content)
@@ -241,9 +278,11 @@ println("Read from file:", readContent)
 
 ---
 
-## 14. Modules
+## 13. Modules
 
-```javascript
+The `mod` keyword defines modules, organizing code into namespaces. Nested modules and constants are supported, accessed via dot notation (e.g., `Module.Submodule`).
+
+```tlp
 // color_utils.tlp
 mod ColorUtils {
     mod Tones {
@@ -257,9 +296,11 @@ mod ColorUtils {
 
 ---
 
-## 15. Import
+## 14. Import
 
-```javascript
+The `import` keyword loads external modules by filename (e.g., `"file.tlp"`). Imported modules are accessed via their namespace, enabling modular code reuse.
+
+```tlp
 // main.tlp
 import "color_utils.tlp"
 
@@ -269,52 +310,191 @@ println("Default Hue:", ColorUtils.DEFAULT_HUE)
 
 ---
 
-## 16. Additional Features
+## 15. Additional Features
 
-### 16.1. Input Handling
+### 15.1. Input Handling
 
-```javascript
+The `scanln` function reads a line of user input, returning a string. It facilitates interactive programs by capturing input dynamically.
+
+```tlp
 println("Enter a color:")
 let input = scanln()
 println("You chose:", input)
 ```
 
-### 16.2. String Formatting
+### 15.2. String Formatting
 
-```javascript
+The `sprintf` function formats strings using placeholders (e.g., `%v`), combining values into a single string for output or storage.
+
+```tlp
 let color = "Purple"
 let intensity = 80
 let formatted = sprintf("Color: %v, Intensity: %v", color, intensity)
 println("Formatted:", formatted)
 ```
 
-### 16.3. Operators
+### 15.3. Shadowing
 
-```javascript
-let r = 255
-let g = 128
-println("Add:", r + g)
-println("Exponent:", r ** 2)
-println("Integer Div:", r /_ g)
-println("50 percent of 1000:", 50 %% 1000)
-```
+Shadowing in TulipScript allows a variable declared with `let` or `const` to override a previous variable with the same name, either in the same scope or in an inner scope. Both mutable (`let`) and immutable (`const`) variables can be shadowed. A `const` variable, while immutable (cannot be reassigned), can be shadowed by a new `let` or `const` declaration, creating a distinct variable that takes precedence. Shadowing in the same scope replaces the earlier declaration, with the last one being used. In different scopes, an inner scope variable shadows the outer scope variable without affecting it, preserving the outer variable's value outside the inner scope.
 
-### 16.4. Shadowing
+```tlp
+// Shadowing in the same scope
+let hue = "Red"
+let hue = "Blue"  // Shadows previous 'hue' with a new mutable variable
+println("Same scope hue:", hue)  // Outputs: Blue
 
-```javascript
-let hue = "Orange"
+const MAX_VALUE = 100
+const MAX_VALUE = 200  // Shadows previous 'const' with a new immutable variable
+println("Shadowed const:", MAX_VALUE)  // Outputs: 200
+
+let shade = "Light"
+const shade = "Dark"  // Shadows 'let' with 'const'
+println("Shadowed let with const:", shade)  // Outputs: Dark
+
+// Shadowing in different scopes
+let color = "Yellow"
 {
-    let hue = "Cyan"
-    println("Inner hue:", hue)
+    let color = "Green"  // Shadows outer 'color' in inner scope
+    println("Inner color:", color)  // Outputs: Green
+    const color = "Purple"  // Shadows again in the same inner scope
+    println("Inner const color:", color)  // Outputs: Purple
 }
-println("Outer hue:", hue)
+println("Outer color:", color)  // Outputs: Yellow, unaffected by inner scope
 ```
+
+---
+
+## 16. Operators
+
+TulipScript supports a variety of operators for arithmetic, assignment, comparison, logical operations, and more. Below are the supported operators, organized by category, followed by their precedence rules.
+
+### 16.1. Arithmetic Operators
+
+- `+` (Addition)
+- `-` (Subtraction)
+- `*` (Multiplication)
+- `/` (Division)
+- `%` (Modulus)
+- `**` (Exponentiation)
+- `/_` (Integer division)
+- `%%` (Percentage)
+
+**Example**:
+
+```tlp
+let a = 10
+let b = 3
+println("Addition:", a + b)           // 13
+println("Subtraction:", a - b)        // 7
+println("Multiplication:", a * b)     // 30
+println("Division:", a / b)           // 3.333...
+println("Modulus:", a % b)            // 1
+println("Exponentiation:", a ** 2)    // 100
+println("Integer Division:", a /_ b)  // 3
+println("Percentage:", 25 %% 1000)    // 250
+```
+
+### 16.2. Assignment Operators
+
+- `=` (Assignment)
+
+**Example**:
+
+```tlp
+let x = 5
+x = x + 1
+println("x:", x)  // 6
+```
+
+### 16.3. Comparison Operators
+
+- `==` (Equal to)
+- `!=` (Not equal to)
+- `>` (Greater than)
+- `<` (Less than)
+- `>=` (Greater than or equal to)
+- `<=` (Less than or equal to)
+
+**Example**:
+
+```tlp
+let a = 5
+let b = 3
+println("Equal:", a == b)          // false
+println("Not Equal:", a != b)      // true
+println("Greater Than:", a > b)    // true
+println("Less Than:", a < b)       // false
+println("Greater or Equal:", a >= b) // true
+println("Less or Equal:", a <= b)    // false
+```
+
+### 16.4. Logical Operators
+
+- `&&` (Logical AND)
+- `||` (Logical OR)
+- `!` (Logical NOT)
+
+**Example**:
+
+```tlp
+let t = true
+let f = false
+println("AND:", t && f)  // false
+println("OR:", t || f)   // true
+println("NOT:", !t)      // false
+```
+
+### 16.5. Unary Operators
+
+- `++` (Increment)
+- `--` (Decrement)
+- `-` (Unary negation)
+
+**Example**:
+
+```tlp
+let x = 5
+println("Increment:", ++x)  // 6
+println("Decrement:", --x)  // 5
+println("Negation:", -x)    // -5
+```
+
+### 16.6. Force Operator
+
+- `!{}` (Force struct instantiation with custom fields)
+
+**Example**:
+
+```tlp
+struct Vec3
+let v = Vec3!{x = 1, y = 2, z = 3}  // Forces creation with fields x, y, z
+println(v)
+```
+
+### 16.7. Operator Precedence
+
+Operator precedence determines the order in which operators are evaluated. The table below lists the precedence levels from highest to lowest.
+
+| Precedence Level | Operators |
+|------------------|-----------|
+| Literals         | `number`, `string`, `boolean`, `null`, `( )` (grouped expressions) |
+| Calls            | `.` (field access), `[]` (subscripting), `()` function calls |
+| Unary            | `++`, `--`, `-` (negation), `!` (not) |
+| Multiplicative   | `*`, `/`, `%`, `**`, `/_`, `%%` |
+| Additive         | `+`, `-` |
+| Comparison       | `>`, `<`, `>=`, `<=` |
+| Equality         | `==`, `!=` |
+| LogicalAnd       | `&&` |
+| LogicalOr        | `\|\|` |
+| Assignment       | `=` |
 
 ---
 
 ## 17. Unicode Support
 
-```javascript
+TulipScript supports Unicode and emoji characters in identifiers and strings, using UTF-8 encoding. This allows multilingual and expressive variable names.
+
+```tlp
 let 🎨 = "Rainbow"
 println("Palette 🎨:", 🎨)
 
@@ -333,7 +513,9 @@ println("Favorite color name:", 好きな色.名前)
 
 ## 18. Native Functions
 
-```javascript
+Built-in functions, organized by category (e.g., String, Array), provide system-level operations. They are called directly, taking arguments to perform tasks like string manipulation or date handling.
+
+```tlp
 // === String Functions ===
 let str = "  Hello, Tulip!  "
 println("Original string:", str)
@@ -387,10 +569,10 @@ println("Cleared:", array_to_string(arr))
 // === Iterator Functions ===
 let iter_arr = [10, 20, 30]
 let iter = array_iter(iter_arr)                     // Create iterator
-while !iter_done(iter)
+while !iter_done(iter) {
     println("Iterator value:", iter_value(iter))     // Get current value
     iter_next(iter)                                 // Move to next
-end
+}
 
 // === Map Functions ===
 let map = {"a": 1, "b": 2}
@@ -429,7 +611,6 @@ let time = Time(14, 30, 0)                          // Create time
 println("Time:", to_str(time))
 println("Current time:", to_str(time_now()))        // Current time
 let parsed_time = time_parse("15:04:05")            // Parse time
-println("Parsed time:", to_str(parsed_time))
 println("Formatted time:", time_format(time, "15:04")) // Format
 let added_time = time_add(time, 1, 30, 0)           // Add time
 println("Added time:", to_str(added_time))
