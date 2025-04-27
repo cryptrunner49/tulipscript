@@ -51,7 +51,7 @@ const locations = {
     }
 }
 
-// Combat function
+// Handle combat between player and enemy, updating health and inventory
 function combat(player, enemy) {
     println("You are fighting a " + enemy.name + ".")
     while (player.health > 0 && enemy.health > 0) {
@@ -80,7 +80,7 @@ function combat(player, enemy) {
                         let itemChoice = scanln()
                         let itemIndex = parse_int(itemChoice)
                         if (get_runtype(itemIndex) == "number" && itemIndex >= 1 && itemIndex <= len(player.inventory)) {
-                            let adjustedIndex = itemIndex - 1 // Adjust to 0-based index
+                            let adjustedIndex = itemIndex - 1 // Convert 1-based item selection to 0-based inventory index
                             let item = player.inventory[adjustedIndex]
                             if (item == "Health Potion") {
                                 player.health = player.health + 20
@@ -120,7 +120,7 @@ function main() {
 
     let player = Player()
 
-    // Ensure name is not empty
+    // Prompt user for a non-empty name and validate input
     while (true) {
         println("Enter your name:")
         player.name = scanln()
@@ -131,7 +131,7 @@ function main() {
         }
     }
 
-    // Class selection with retry loop
+    // Handle class selection with validation and retry for invalid inputs
     let validClass = false
     while (!validClass) {
         println("Choose your class: 1. Warrior 2. Mage 3. Archer")
@@ -178,7 +178,7 @@ function main() {
             let choice = scanln()
             let actionIndex = parse_int(choice)
             if (get_runtype(actionIndex) == "number" && actionIndex >= 1 && actionIndex <= len(location["actions"])) {
-                let adjustedIndex = actionIndex - 1 // Adjust to 0-based index
+                let adjustedIndex = actionIndex - 1 // Convert 1-based user input to 0-based array index
                 let action = location["actions"][adjustedIndex]
                 validChoice = true
                 if (action == "Go to Forest") {
@@ -207,6 +207,7 @@ function main() {
                         } else {
                             player.xp = player.xp + enemy.xpReward
                             println("You gained " + to_str(enemy.xpReward) + " XP!")
+                            // Check for level-up and update player stats if XP threshold is met
                             while (player.xp >= 100) {
                                 player.level = player.level + 1
                                 player.maxHealth = player.maxHealth + 10

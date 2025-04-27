@@ -24,6 +24,31 @@ import (
 	"github.com/cryptrunner49/tulipscript/internal/vm"
 )
 
+func main() {
+	C.bind_tab_key()
+
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "-h", "--help":
+			showUsage()
+			os.Exit(0)
+		case "-v", "--version":
+			showVersion()
+			os.Exit(0)
+		}
+	}
+
+	vm.InitVM(os.Args)
+	defer vm.FreeVM()
+
+	if len(os.Args) == 1 {
+		fmt.Println("tulip REPL - TulipScript Virtual Machine (type Ctrl+D to exit)")
+		repl()
+	} else {
+		runFile(os.Args[1])
+	}
+}
+
 // showUsage prints detailed help and usage instructions.
 func showUsage() {
 	usage := `tulip - A TulipScript Virtual Machine Interpreter
@@ -64,32 +89,7 @@ func showVersion() {
 	fmt.Printf("tulip version %s\n", common.Version)
 }
 
-func main() {
-	C.bind_tab_key()
-
-	if len(os.Args) > 1 {
-		switch os.Args[1] {
-		case "-h", "--help":
-			showUsage()
-			os.Exit(0)
-		case "-v", "--version":
-			showVersion()
-			os.Exit(0)
-		}
-	}
-
-	vm.InitVM(os.Args)
-	defer vm.FreeVM()
-
-	if len(os.Args) == 1 {
-		fmt.Println("tulip REPL - TulipScript Virtual Machine (type Ctrl+D to exit)")
-		repl()
-	} else {
-		runFile(os.Args[1])
-	}
-}
-
-// countBlocks counts the net number of open blocks (unmatched '{' minus '}')
+// countBlocks returns the difference between the number of '{' and '}' characters to track block nesting depth.
 func countBlocks(input string) int {
 	count := 0
 	for _, char := range input {
@@ -102,11 +102,13 @@ func countBlocks(input string) int {
 	return count
 }
 
+// repl runs the interactive Read-Eval-Print Loop (REPL) for TulipScript
 func repl() {
 	var buffer strings.Builder
 	blockDepth := 0
 
 	for {
+		// Set prompt to ">>> " for new input or "... " when continuing a multi-line block
 		prompt := ">>> "
 		if blockDepth > 0 {
 			prompt = "... "
@@ -162,6 +164,8 @@ func repl() {
 	}
 }
 
+// runFile reads a TulipScript source file from disk and executes it using the interpreter.
+// It exits the process with an appropriate error code if an error occurs.
 func runFile(path string) {
 	source, err := os.ReadFile(path)
 	if err != nil {

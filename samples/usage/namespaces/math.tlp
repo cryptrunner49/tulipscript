@@ -1,9 +1,9 @@
-// Section: Function Definitions
+// Function Definitions
 // Defines utility mathematical functions
 function add(a, b) {
     // Adds two numbers and returns the result
     return a + b
 }
 
-// Section: Constants
+// Constants
 const PI = 3.14159

@@ -1,4 +1,4 @@
-// Section: Basic Array Operations
+// Basic Array Operations
 println("--- Basic Array Operations ---")
 let arr = [1, 2, 3]
 println("First element:", arr[0])      // Prints 1
@@ -7,14 +7,14 @@ println("Array length:", len(arr))     // Prints 3
 push(arr, 4)                           // Adds 4 to the end
 println("Popped element:", pop(arr))   // Prints 4 and removes it
 
-// Section: For Loop with Arrays
+// For Loop with Arrays
 println("--- For Loop ---")
 let arr = [10, 20, 30, 40]
 for (let i = 0; i < len(arr); i++) {
     println("Element at index", i, ":", arr[i])  // Prints each element
 }
 
-// Section: While Loop with Arrays
+// While Loop with Arrays
 println("--- While Loop ---")
 let index = 0
 while (index < len(arr)) {
@@ -22,7 +22,7 @@ while (index < len(arr)) {
     index = index + 1
 }
 
-// Section: Manual Iterator with While Loop
+// Manual Iterator with While Loop
 println("--- Manual Iterator with While ---")
 let arr = [10, 20, 30, 40]
 let it = array_iter(arr)
@@ -32,13 +32,13 @@ while (!iter_done(it)) {
     iter_next(it)
 }
 
-// Section: Iterator Loop
+// Iterator Loop
 println("--- Iterator Loop ---")
 iter (let item in [10, 20, 30, 40]) {
     println("Item:", item)  // Prints each element
 }
 
-// Section: Advanced Array Operations
+// Advanced Array Operations
 println("--- Advanced Array Operations ---")
 
 // Sorting an array lexicographically
@@ -75,7 +75,7 @@ array_sorted_push(sortedArray, "blueberry")
 println("Sorted array after array_sorted_push:")
 println(sortedArray)
 
-// Section: Array Search Operations
+// Array Search Operations
 println("")
 println("--- array_linear_search Example ---")
 let searchArr = ["cat", "dog", "bird", "dog"]
@@ -96,7 +96,7 @@ println("Index of 'cherry' (binary search): " + to_str(binIndex1))
 let binIndex2 = array_binary_search(sortedSearchArr, "fig")
 println("Index of 'fig' (not found returns -1): " + to_str(binIndex2))
 
-// Section: Additional Array Functions
+// Additional Array Functions
 let arr = [1, 2, 3, 2]
 index_of(arr, 2)         // Returns 1
 last_index_of(arr, 2)    // Returns 3

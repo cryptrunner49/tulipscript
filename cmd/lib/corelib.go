@@ -79,7 +79,7 @@ func Tulip_RunFileWithResult(cpath *C.char, exitCode *C.int) *C.char {
 	return valueToCString(vm.GetLastValue())
 }
 
-// valueToString converts a runtime.Value to its string representation, mirroring runtime.PrintObject.
+// valueToString converts a runtime.Value into a human-readable string, similar to how runtime.PrintObject displays values.
 func valueToString(val runtime.Value) string {
 	switch val.Type {
 	case runtime.VAL_NULL:
@@ -154,7 +154,7 @@ func valueToString(val runtime.Value) string {
 	}
 }
 
-// valueToCString converts a runtime.Value to a C string, which must be freed by the caller.
+// valueToCString converts a runtime.Value to a C string. The caller is responsible for freeing it.
 func valueToCString(val runtime.Value) *C.char {
 	return C.CString(valueToString(val))
 }

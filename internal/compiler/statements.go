@@ -14,7 +14,8 @@ func expressionStatement() {
 }
 
 func ifStatement() {
-	// List to store jump offsets for patching when exiting the entire if statement
+	// Track jump offsets for all branches (then, else-if, else) to patch them to the end of the if
+	// statement, ensuring control flow skips to after the entire construct.
 	var endJumps []int
 
 	// Parse the initial if condition
@@ -26,7 +27,7 @@ func ifStatement() {
 	thenJump := emitJump(byte(runtime.OP_JUMP_IF_FALSE))
 	emitByte(byte(runtime.OP_POP)) // Pop condition result
 
-	// Compile the then branch (should be a statement, e.g., block)
+	// Compile the then branch
 	statement()
 
 	// Jump to the end of the entire if statement after the then branch
@@ -37,7 +38,8 @@ func ifStatement() {
 	patchJump(thenJump)
 	emitByte(byte(runtime.OP_POP)) // Pop condition result for false case
 
-	// Handle chained | (else-if) clauses
+	// Process chained else-if clauses (marked by '|'), compiling each condition and branch, and
+	// managing jumps to skip to the next clause or the end of the if statement.
 	for match(token.TOKEN_PIPE) {
 		// Check for condition starting with '('
 		if !check(token.TOKEN_LEFT_PAREN) {
@@ -94,7 +96,8 @@ func whileStatement() {
 	exitJump := emitJump(byte(runtime.OP_JUMP_IF_FALSE))
 	emitByte(byte(runtime.OP_POP))
 
-	// Track loop for continue/break
+	// Register the while loop in the compiler’s loop stack to manage continue and break statements,
+	// storing the loop’s start position and jump patch lists.
 	current.loops = append(current.loops, Loop{
 		jumpType:        JUMP_WHILE,
 		start:           loopStart,
@@ -151,6 +154,7 @@ func forStatement() {
 	loopStart := currentChunk().Count()
 	exitJump := -1
 
+	// Compile the loop condition, if present, and emit a jump to exit the loop if the condition is false.
 	if !match(token.TOKEN_SEMICOLON) {
 		expression()
 		consumeOptionalSemicolon()
@@ -250,7 +254,9 @@ func continueStatement() {
 		reportError("Cannot use 'continue' inside a match statement.")
 		return
 	}
-	// Existing continue logic remains unchanged
+
+	// Emit the OP_CONTINUE opcode and reserve space for the jump offset, which will be patched to
+	// the loop’s start or increment position.
 	emitByte(byte(runtime.OP_CONTINUE))
 	jumpPos := currentChunk().Count()
 	emitByte(0xFF)
@@ -369,9 +375,4 @@ func iterStatement() {
 	// Cleanup: Adjust locals for scope exit.
 	current.localCount -= 2
 	endScope()
-}
-
-func matchStatement() {
-	// TODO
-	fmt.Println("###### TODO ######")
 }

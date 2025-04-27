@@ -73,7 +73,7 @@ build-sample-rust:
 	@cd $(RUST_DIR) && cargo build $(RUSTFLAGS) && cp target/release/$(RUST_BINARY) ../../../$(BIN_DIR)/
 	@echo "✅ Rust sample build complete! Binary located at $(BIN_DIR)/$(RUST_BINARY)"
 
-# Build the VM and library
+# Convenience target to build both the shared library and VM executable
 .PHONY: build
 build: lib vm
 
@@ -119,7 +119,7 @@ run-sample-go: build-sample-go
 # Run Rust sample
 .PHONY: run-sample-rust
 run-sample-rust: build-sample-rust
-	@echo "🚀 Running sample_rs..."
+	@echo "🚀 Running sample_rust..."
 	@LD_LIBRARY_PATH=$(BIN_DIR) $(BIN_DIR)/$(RUST_BINARY)
 	@echo "🏁 Execution finished!"
 

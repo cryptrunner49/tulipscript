@@ -4,7 +4,7 @@ function greet(name) {
 let msg = greet("World")
 println("Greeting:", msg)  // Outputs: Hello, World!
 
-// Section: Addition Function
+// Addition Function
 function add(a, b) {
     return a + b
 }

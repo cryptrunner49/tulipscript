@@ -10,11 +10,15 @@ function main() {
     let guess = 0
     let attempts = 0
 
+    // Main game loop to prompt guesses until the correct number is guessed
     while (guess != target) {
         println("Enter your guess (1-100):")
+        
+        // Parse user's guess as an integer
         guess = parse_int(scanln())
         attempts = attempts + 1
 
+        // Validate guess and provide feedback
         if (get_runtype(guess) == "number") {
             if (guess < target) {
                 println("Too low! Try again.")
@@ -29,7 +33,7 @@ function main() {
         }
     }
 
-    // Define a map to showcase game statistics
+    // Create a map to store game statistics
     let stats = {
         "attempts": attempts,
         "target": target

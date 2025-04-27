@@ -54,7 +54,8 @@ func ScanToken() token.Token {
 		return lexer.number()
 	}
 
-	// Start an identifier if the rune is not an operator or whitespace
+	// Parse and return an identifier or keyword if the current rune
+	// is not an operator, whitespace.
 	if !isOperatorRune(r) && !unicode.IsSpace(r) {
 		return lexer.identifier()
 	}
@@ -231,6 +232,9 @@ func (l *Lexer) skipWhitespace() {
 			l.advance()
 			continue
 		}
+
+		// Skip single-line (//) and multi-line (/* */) comments, advancing the lexer and incrementing
+		// the line count for newlines within multi-line comments.
 		if r == '/' {
 			if l.peekNext() == '/' {
 				for l.peek() != '\n' && !l.isAtEnd() {
@@ -281,7 +285,7 @@ func (l *Lexer) char() token.Token {
 	// Read the character value (supporting escape sequences if your language allows them)
 	var value []rune
 
-	// Check for escape sequence:
+	// Handle escape sequences (e.g., '\n') by consuming the backslash and the following character.
 	if l.peek() == '\\' {
 		l.advance() // Consume the backslash
 		if l.isAtEnd() {
@@ -294,9 +298,8 @@ func (l *Lexer) char() token.Token {
 		value = append(value, rune(l.advance()))
 	}
 
-	// Make sure there is no more than one character for a valid character literal.
-	// Optionally: you might want to issue an error if more than one character is encountered
-	// before the closing quote.
+	// Ensure the character literal contains exactly one character (or escape sequence); report an
+	// error if additional characters appear before the closing quote.
 	if !l.isAtEnd() && l.peek() != '\'' {
 		// Optional: consume characters until the closing single quote (or end) to sync error recovery.
 		for l.peek() != '\'' && !l.isAtEnd() {
@@ -308,7 +311,7 @@ func (l *Lexer) char() token.Token {
 		return l.errorToken("Character literal must contain exactly one character.")
 	}
 
-	// Expect and consume the closing single quote.
+	// Consume the closing single quote to complete the character literal.
 	if l.isAtEnd() || l.peek() != '\'' {
 		return l.errorToken("Unterminated character literal.")
 	}

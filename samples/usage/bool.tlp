@@ -1,4 +1,4 @@
-// Section: Boolean Variables
+// Boolean Variables
 println("--- Boolean Demo ---")
 let truth = true
 let ok = false

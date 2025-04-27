@@ -1,4 +1,4 @@
-// Section: Closure Demonstration
+// Closure Demonstration
 println("--- Closure Demo ---")
 function makeCounter() {
     let value = 0

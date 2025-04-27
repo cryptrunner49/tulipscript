@@ -1,4 +1,4 @@
-// Section: Block Scope Demonstration
+// Block Scope Demonstration
 println("--- Block Scope ---")
 let x = 10
 {
